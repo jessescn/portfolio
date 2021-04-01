@@ -1,2 +1,3 @@
-# jessesouza
-repositório referente ao código do meu portfólio
+# Portfólio
+
+[Figma](https://www.figma.com/file/JEiUdEVvCenkCNNU33n9rc/portfolio?node-id=0%3A1)
