@@ -5,16 +5,16 @@ export const Container = styled.header`
 `
 
 export const Content = styled.div`
-   max-width: 900px;
+   max-width: 650px;
    margin: 0 auto;
 
    nav {
         height: 5rem;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: center;
 
-        font-size: 1.25rem;
+        font-size: 1.2rem;
 
         a {
             transition: color 0.2s;

@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { ActiveLink } from "../ActiveLink"
 import { Container, Content } from "./styles"
 
 interface HeaderProps {
@@ -11,18 +11,18 @@ export function Header({ toggleTheme }: HeaderProps){
         <Container>
             <Content>            
                 <nav>
-                    <Link href="/">
-                        <a className="active">Home</a>
-                    </Link>
-                    <Link href="/resume">
+                    <ActiveLink activeClassName="active" href="/">
+                        <a>Home</a>
+                    </ActiveLink>
+                    <ActiveLink activeClassName="active" href="/resume">
                         <a>Resume</a>
-                    </Link>
-                    <Link href="/projects">
+                    </ActiveLink>
+                    <ActiveLink activeClassName="active" href="/projects">
                         <a>Projects</a>
-                    </Link>
-                    <Link href="/posts">
+                    </ActiveLink>
+                    <ActiveLink activeClassName="active" href="/posts">
                         <a>Posts</a>
-                    </Link>
+                    </ActiveLink>
                 </nav>
             </Content>
         </Container>
