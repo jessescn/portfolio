@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.footer`
-    height: 5rem;
-    padding-bottom: 1.5rem;
+    height: 8rem;
+    padding-bottom: 1rem;
     
     position: absolute;
     left: 0;
@@ -10,7 +10,7 @@ export const Container = styled.footer`
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 
     img {
@@ -23,5 +23,4 @@ export const Container = styled.footer`
             fill: ${props => props.theme.colors.secundary};
         }
     } 
-
 `

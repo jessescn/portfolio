@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
-    min-height: calc(100vh - 12rem);
+    min-height: calc(100vh - 13rem);
     max-width: 650px;
     padding-top: 4rem;
     margin: 0 auto;
@@ -19,6 +19,17 @@ export const Container = styled.main`
 
 export const Experiences = styled.div`
 
+    position: relative;
+
+    .loading {
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+
     font-size: 0.9rem;
     line-height: 1.2rem;
 
@@ -27,6 +38,7 @@ export const Experiences = styled.div`
 
         h2 {
             font-size: 1.6rem;
+            line-height: 1.6rem;
             margin: 2rem 0 0.5rem;
         }
 
