@@ -36,6 +36,10 @@ export const Content = styled.div`
 
     max-width: 650px;
 
+    h2 {
+        font-weight: 400;
+    }
+
     a {
         display: block;
         margin-bottom: 5rem;

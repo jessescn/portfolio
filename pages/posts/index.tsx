@@ -1,6 +1,24 @@
-import { Container, Content } from "./styles";
+import { GetStaticProps } from "next"
+import Link from "next/link"
 
-export default function Posts(){
+import { Container, Content } from "./styles"
+
+import { getPrismicClient } from "../../services/prismic"
+import Prismic from '@prismicio/client'
+import { RichText } from 'prismic-dom'
+
+type Post = {
+    slug: string,
+    title: string,
+    excerpt: string,
+    updatedAt: string,
+}
+
+interface PostsProps {
+    posts: Post[]
+}
+
+export default function Posts({ posts }:PostsProps){
     return (
         <Container>
             <h1>
@@ -8,28 +26,45 @@ export default function Posts(){
                 <div></div>
             </h1>
             <Content>
-                <a>
-                    <h1>13 VSCode Extensions That Every Web Developer Should Use</h1>
-                    <p>It’s one of the most important extensions, As you may have 
-                        noticed from the title, it automatically adds a close tag 
-                        that you wanted to write. You don’t need any command to activate 
-                        this extension</p>
-                </a>
-                <a>
-                    <h1>13 VSCode Extensions That Every Web Developer Should Use</h1>
-                    <p>It’s one of the most important extensions, As you may have 
-                        noticed from the title, it automatically adds a close tag 
-                        that you wanted to write. You don’t need any command to activate 
-                        this extension</p>
-                </a>
-                <a>
-                    <h1>13 VSCode Extensions That Every Web Developer Should Use</h1>
-                    <p>It’s one of the most important extensions, As you may have 
-                        noticed from the title, it automatically adds a close tag 
-                        that you wanted to write. You don’t need any command to activate 
-                        this extension</p>
-                </a>
+                { posts.length == 0 ? (<h2>No posts for now 😢</h2>) : posts.map(post => (
+                    <Link key={post.slug} href={`/posts/${post.slug}`}>
+                        <a>
+                            <time>{post.updatedAt}</time>
+                            <h1>{post.title}</h1>
+                            <p>{post.excerpt}</p>
+                        </a>
+                    </Link>
+                ))}
             </Content>
         </Container>
     )
+}
+
+export const getStaticProps: GetStaticProps = async() => {
+    const prismic = getPrismicClient()
+    const response = await prismic.query([
+        Prismic.Predicates.at("document.type", "posts")],
+        {
+            fetch: ['posts.title', 'posts.content'],
+            pageSize: 100
+        })
+
+    const posts = response.results.map(post => {
+        return {
+            slug: post.uid,
+            title: RichText.asText(post.data.title),
+            excerpt: post.data.content.find(content => content.type === "paragraph")?.text ?? "",
+            updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            })
+        }
+    })
+
+    return {
+        props : {
+            posts
+        }
+    }
 }

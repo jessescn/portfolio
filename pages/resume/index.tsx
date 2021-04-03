@@ -15,7 +15,7 @@ export default function Resume(){
     useEffect(() => {
         const prismic = getPrismicClient()
         prismic.query(Prismic.Predicates.at('document.type', 'jobs'),
-                    { orderings: '[my.jobs.end desc]', pageSize: 20}
+                    { orderings: '[my.jobs.end]', pageSize: 20}
         )
         .then(resp => {            
             const jobsResult = resp.results.map(job => {
@@ -50,20 +50,21 @@ export default function Resume(){
                 {
                     loading && ( <ReactLoading className="loading" type="spin" color="#C83E4D" height={60} width={37} />)
                 }
-              {jobs.map(job =>
-                (
-                  <div key={job.slug}>
-                    <h2>{job.role}</h2>
-                    <span><i>at {job.at}</i></span> 
-                    <p>{job.summary}</p>
-                    <ul>
-                      {job.experiences.map(xp => (
-                          <li key={xp}>{xp}</li>
-                      ))}
-                    </ul>
-                  </div> 
-                  )
-              )}
+                {   jobs.map(job =>
+                        (
+                        <div key={job.slug}>
+                            <h2>{job.role}</h2>
+                            <span><i>at {job.at}</i></span> 
+                            <p>{job.summary}</p>
+                            <ul>
+                            {job.experiences.map(xp => (
+                                <li key={xp}>{xp}</li>
+                            ))}
+                            </ul>
+                        </div> 
+                        )
+                    )
+                }
             </Experiences>
         </Container>
     )
