@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { ActiveLink } from "../ActiveLink"
 import { Container, Content } from "./styles"
 
@@ -7,9 +8,15 @@ interface HeaderProps {
 
 export function Header({ toggleTheme }: HeaderProps){
 
+    const [showMobileMenu, setShowMobileMenu] = useState(false)
+
+    function handleToggleMenu(){
+        setShowMobileMenu(!showMobileMenu)
+    }
+
     return(
         <Container>
-            <Content>            
+            <Content className={showMobileMenu ? "on" : ""}>        
                 <nav>
                     <ActiveLink activeClassName="active" href="/">
                         <a>Home</a>
@@ -24,6 +31,11 @@ export function Header({ toggleTheme }: HeaderProps){
                         <a>Posts</a>
                     </ActiveLink>
                 </nav>
+                <div className={`menu ${showMobileMenu ? "close" : ""}`} onClick={handleToggleMenu}>
+                    <div className="one"></div>
+                    <div className="two"></div>
+                    <div className="three"></div>
+                </div>
             </Content>
         </Container>
     )

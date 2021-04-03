@@ -1,4 +1,5 @@
 import { GetStaticProps } from "next";
+import { useEffect, useState } from "react";
 import { Container, Content } from "./styles";
 
 type Project =  {

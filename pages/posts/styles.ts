@@ -61,11 +61,5 @@ export const Content = styled.div`
             font-size: 0.9rem;
             line-height: 1.5rem;
         }
-
-        @media (max-width: 600px){
-            h1 {
-                text-align: center;
-            }
-        }
     }
 `
