@@ -1,22 +1,40 @@
-import { useState } from "react"
+import { useContext } from "react"
 import { ActiveLink } from "../ActiveLink"
 import { Container, Content } from "./styles"
 
+import SwitchButton from 'react-switch'
+
+import { ThemeContext } from 'styled-components'
+
 interface HeaderProps {
-    toggleTheme(): void
+    toggleTheme: () => void,
+    showMenu: boolean,
+    setShowMenu: (value: boolean) => void
 }
 
-export function Header({ toggleTheme }: HeaderProps){
+export function Header({ toggleTheme, showMenu, setShowMenu }: HeaderProps){
 
-    const [showMobileMenu, setShowMobileMenu] = useState(false)
+    const { title, colors } = useContext(ThemeContext)
 
     function handleToggleMenu(){
-        setShowMobileMenu(!showMobileMenu)
+        setShowMenu(!showMenu)
     }
 
     return(
         <Container>
-            <Content className={showMobileMenu ? "on" : ""}>        
+            <Content className={showMenu ? "on" : ""}>
+                <SwitchButton
+                    className="themeButton"
+                    onChange={toggleTheme}
+                    checked={title === "dark"}
+                    checkedIcon={false}
+                    uncheckedIcon={false}
+                    height={20}
+                    width={50}
+                    handleDiameter={25}
+                    offHandleColor={colors.secundary}
+                    onColor={colors.secundary}
+                />   
                 <nav>
                     <ActiveLink activeClassName="active" href="/">
                         <a>Home</a>
@@ -31,7 +49,7 @@ export function Header({ toggleTheme }: HeaderProps){
                         <a>Posts</a>
                     </ActiveLink>
                 </nav>
-                <div className={`menu ${showMobileMenu ? "close" : ""}`} onClick={handleToggleMenu}>
+                <div className={`menu ${showMenu ? "close" : ""}`} onClick={handleToggleMenu}>
                     <div className="one"></div>
                     <div className="two"></div>
                     <div className="three"></div>

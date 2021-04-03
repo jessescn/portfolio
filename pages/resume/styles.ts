@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.main`
     min-height: calc(100vh - 13rem);
     max-width: 650px;
-    padding-top: 4rem;
+    padding: 4rem 2rem;
     margin: 0 auto;
 
     h1 {

@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 
-export default createGlobalStyle`
+interface GlobalProps{
+  showMenu: boolean;
+}
+
+export default createGlobalStyle<GlobalProps>`
   * {
       margin: 0;
       padding: 0;
@@ -11,7 +15,8 @@ export default createGlobalStyle`
     background: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.text};
     height: 100%;
-    padding: 0 4rem;
+
+    overflow-y: ${props => props.showMenu ? "hidden" : "inherit"};
   }
 
   @media (max-width: 1080px){
@@ -23,10 +28,6 @@ export default createGlobalStyle`
   @media (max-width: 720px){
     html {
         font-size: 87.5%;
-    }
-
-    body {
-      padding: 0 2rem;
     }
   }
 

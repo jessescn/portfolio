@@ -13,10 +13,9 @@ export const Container = styled.footer`
     justify-content: flex-end;
     align-items: center;
 
-    img {
-        margin: 1rem 1.4rem 0;
-        transition: all 0.2s;
-        fill: ${props => props.theme.colors.primary};
+    svg {
+        margin: 1rem 1rem 0 0;
+        transition: all 0.2s;            
 
         &:hover {
             transform: scale(1.1);

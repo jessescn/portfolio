@@ -8,6 +8,17 @@ export const Content = styled.div`
    max-width: 650px;
    margin: 0 auto;
 
+   .themeButton {
+      position: absolute !important;
+      right: 30px;
+      top: 30px;
+
+      @media (max-width: 720px){
+         right: 0;
+         left: 30px;
+      }
+   }
+
    nav {
         height: 5rem;
         display: flex;
@@ -64,7 +75,7 @@ export const Content = styled.div`
       div.menu {
          display: block;
          position: absolute;
-         right: 0;
+         right: 20px;
          top: 30px;
          z-index: 100;
       }
@@ -74,6 +85,7 @@ export const Content = styled.div`
       }
 
       &.on {
+
          nav {
             display: flex;
             flex-direction: column;
@@ -91,7 +103,7 @@ export const Content = styled.div`
             a {
                display: block;
                text-align: center;
-               font-size: 2.5rem;
+               font-size: 2rem;
                line-height: 4rem;
             }
          }

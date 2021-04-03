@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.main`
     min-height: calc(100vh - 13rem);
     max-width: 1120px;
-    padding-top: 4rem;
+    padding: 4rem 2rem;
     margin: 0 auto;
 
     display: flex;
@@ -32,7 +32,7 @@ export const Container = styled.main`
 
 export const Content = styled.section`
 
-    margin-top: 4rem;
+    margin-top: 4rem; 
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
