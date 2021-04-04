@@ -39,7 +39,7 @@ export default function Projects({ projects }: ProjectsProps){
 
 export const getStaticProps: GetStaticProps = async() => {
 
-    const validRepos = ["dt-money", "ignews", "all-i-know-about-GAS", "jessescn.github.io"]
+    const validRepos = ["dt-money", "ignews", "custom-notion-template", "portfolio"] 
 
     const response = await fetch('https://api.github.com/users/jessescn/repos')
     const data = await response.json()
