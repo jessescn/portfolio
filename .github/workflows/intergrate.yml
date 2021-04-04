@@ -25,6 +25,7 @@ jobs:
       - run: npm run build
         env:
             CI: true
+            NEXT_PUBLIC_PRISMIC_URL: https://portfolio-jessescn.cdn.prismic.io/api/v2
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.6.2
