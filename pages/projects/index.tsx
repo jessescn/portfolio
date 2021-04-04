@@ -39,7 +39,7 @@ export default function Projects({ projects }: ProjectsProps){
 
 export const getStaticProps: GetStaticProps = async() => {
 
-    const validRepos = ["dt-money", "ignews", "all-i-know-about-GAS"]
+    const validRepos = ["dt-money", "ignews", "all-i-know-about-GAS", "jessescn.github.io"]
 
     const response = await fetch('https://api.github.com/users/jessescn/repos')
     const data = await response.json()
@@ -57,7 +57,8 @@ export const getStaticProps: GetStaticProps = async() => {
     return {
         props: {
             projects
-        }
+        },
+        revalidate: 60 * 60
     }
     
 }
