@@ -1,6 +1,5 @@
 import { GetStaticProps } from "next";
-import { useEffect, useState } from "react";
-import { Container, Content } from "./styles";
+import { Container, Content } from "../../styles/projects/styles";
 
 type Project =  {
     id: number,

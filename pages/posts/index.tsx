@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next"
 import Link from "next/link"
 
-import { Container, Content } from "./styles"
+import { Container, Content } from "../../styles/posts/styles"
 
 import { getPrismicClient } from "../../services/prismic"
 import Prismic from '@prismicio/client'

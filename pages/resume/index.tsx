@@ -2,7 +2,7 @@ import { getPrismicClient } from "../../services/prismic"
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
 
-import { Container, Experiences } from "./styles"
+import { Container, Experiences } from "../../styles/resume/styles"
 import { useEffect, useState } from "react"
 
 import ReactLoading from 'react-loading'

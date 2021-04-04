@@ -1,4 +1,4 @@
-import { Container, Hero } from "./style";
+import { Container, Hero } from "../styles/home/styles";
 
 export default function Home() {
   return (
