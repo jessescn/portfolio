@@ -5,6 +5,7 @@ import { RichText } from 'prismic-dom'
 import { Container, Experiences } from "../../styles/resume/styles"
 
 import { GetStaticProps } from "next"
+import { useEffect } from "react"
 
 type Job = {
     slug: string,
@@ -17,10 +18,15 @@ type Job = {
 }
 
 interface ResumeProps {
-    jobs: Job[]
+    jobs: Job[],
+    setShowMenu: (show: boolean) => void
 }
 
-export default function Resume({ jobs }: ResumeProps){
+export default function Resume({ jobs, setShowMenu }: ResumeProps){
+
+    useEffect(()=> {
+        setShowMenu(false)
+    },[])
 
     return(
         <Container>

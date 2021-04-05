@@ -1,4 +1,5 @@
 import { GetStaticProps } from "next";
+import { useEffect } from "react";
 import { Container, Content } from "../../styles/projects/styles";
 
 type Project =  {
@@ -10,10 +11,15 @@ type Project =  {
 }
 
 interface ProjectsProps {
-    projects: Project[]
+    projects: Project[],
+    setShowMenu: (show: boolean) => void
 }
 
-export default function Projects({ projects }: ProjectsProps){
+export default function Projects({ projects, setShowMenu }: ProjectsProps){
+
+    useEffect(()=> {
+        setShowMenu(false)
+    },[])
     
     return(
         <Container>

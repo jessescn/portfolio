@@ -1,6 +1,16 @@
+import { useEffect } from "react";
 import { Container, Hero } from "../styles/home/styles";
 
-export default function Home() {
+interface HomeProps {
+  setShowMenu: (show: boolean) => void
+}
+
+export default function Home({ setShowMenu }: HomeProps) {
+
+  useEffect(()=> {
+    setShowMenu(false)
+  },[]) 
+
   return (
     <Container>
         <Hero>

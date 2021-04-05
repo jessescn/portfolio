@@ -17,12 +17,11 @@ function MyApp({ Component, pageProps }) {
     setTheme(theme.title === "light" ? dark : light)
   }
 
-
   return (
     <ThemeProvider theme={theme}>
         <Header toggleTheme={toggleTheme} showMenu={showMobileMenu} setShowMenu={setShowMobileMenu}/>
         <GlobalStyles showMenu={showMobileMenu}/>
-        <Component {...pageProps} />
+        <Component setShowMenu={setShowMobileMenu} {...pageProps} />
         <Footer />
     </ThemeProvider>
   )

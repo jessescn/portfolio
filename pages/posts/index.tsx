@@ -6,6 +6,7 @@ import { Container, Content } from "../../styles/posts/styles"
 import { getPrismicClient } from "../../services/prismic"
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
+import { useEffect } from "react"
 
 type Post = {
     slug: string,
@@ -15,10 +16,17 @@ type Post = {
 }
 
 interface PostsProps {
-    posts: Post[]
+    posts: Post[],
+    setShowMenu: (show: boolean) => void
 }
 
-export default function Posts({ posts }:PostsProps){
+export default function Posts({ posts, setShowMenu }:PostsProps){
+
+    useEffect(()=> {
+        setShowMenu(false)
+    },[])
+    
+
     return (
         <Container>
             <h1>
