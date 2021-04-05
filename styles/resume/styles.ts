@@ -1,23 +1,8 @@
 import styled from 'styled-components'
 
-export const Container = styled.main`
-    min-height: calc(100vh - 13rem);
-    max-width: 650px;
-    padding: 4rem 2rem;
-    margin: 0 auto;
-
-    h1 {
-        width: fit-content;
-
-        font-size: 2.5rem;
-        line-height: 2.5rem;
-        font-weight: 400;
-
-        border-bottom: 4px solid ${props => props.theme.colors.secundary};
-    }
-`
-
 export const Experiences = styled.div`
+    max-width: 650px;
+    padding: 0 2rem;
 
     position: relative;
 

@@ -1,38 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.main`
-    min-height: calc(100vh - 13rem);
-    max-width: 1120px;
-    padding: 4rem 2rem;
-    margin: 0 auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    h1 {
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        
-        font-weight: 400;
-        font-size: 2.2rem;
-        
-        div {
-            margin-top: 0.5rem;
-            width: 60%;
-            height: 5px;
-            background: ${props => props.theme.colors.secundary};
-            border-radius: 5px;
-        }
-    }
-`
-
 export const Content = styled.section`
-
-    margin-top: 4rem; 
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Container, Hero } from "../styles/home/styles";
+import { HomeContainer, Hero } from "../styles/home/styles";
 
 interface HomeProps {
   setShowMenu: (show: boolean) => void
@@ -12,7 +12,7 @@ export default function Home({ setShowMenu }: HomeProps) {
   },[]) 
 
   return (
-    <Container>
+    <HomeContainer>
         <Hero>
           <h1>
             Hi There!
@@ -22,6 +22,6 @@ export default function Home({ setShowMenu }: HomeProps) {
           <p>but i do like other things like games, animes and RPG.</p>
         </Hero>
         <img src="/assets/homeImage.svg" alt="boy codding"/>
-    </Container>
+    </HomeContainer>
   )
 }

@@ -2,10 +2,12 @@ import { getPrismicClient } from "../../services/prismic"
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
 
-import { Container, Experiences } from "../../styles/resume/styles"
+import { Experiences } from "../../styles/resume/styles"
 
 import { GetStaticProps } from "next"
 import { useEffect } from "react"
+import { Title } from "../../components/design/Title"
+import { PageContainer } from "../../components/design/PageContainer"
 
 type Job = {
     slug: string,
@@ -29,10 +31,10 @@ export default function Resume({ jobs, setShowMenu }: ResumeProps){
     },[])
 
     return(
-        <Container>
-            <h1>
+        <PageContainer>
+            <Title fontSize={2.2}>
                 Until Now
-            </h1>
+            </Title>
             <Experiences>
                 {   jobs.map(job =>
                         (
@@ -50,7 +52,7 @@ export default function Resume({ jobs, setShowMenu }: ResumeProps){
                     )
                 }
             </Experiences>
-        </Container>
+        </PageContainer>
     )
 }
 

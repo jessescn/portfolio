@@ -1,6 +1,8 @@
 import { GetStaticProps } from "next";
 import { useEffect } from "react";
-import { Container, Content } from "../../styles/projects/styles";
+import { PageContainer } from "../../components/design/PageContainer";
+import { Title } from "../../components/design/Title";
+import { Content } from "../../styles/projects/styles";
 
 type Project =  {
     id: number,
@@ -22,11 +24,10 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
     },[])
     
     return(
-        <Container>
-            <h1>
+        <PageContainer>
+            <Title fontSize={2.2}>
                 What i've been doing
-                <div></div>
-            </h1>
+            </Title>
             <Content>
                 {projects.map(project => (
                     <a key={project.id} href={project.link} target="_blank">
@@ -39,7 +40,7 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
                     </a>
                 ))}
             </Content>
-        </Container>
+        </PageContainer>
     )   
 }
 

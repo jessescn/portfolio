@@ -1,7 +1,9 @@
 import { GetStaticProps } from "next"
 import Link from "next/link"
 
-import { Container, Content } from "../../styles/posts/styles"
+import { Content } from "../../styles/posts/styles"
+import { Title } from "../../components/design/Title"
+import { PageContainer } from "../../components/design/PageContainer"
 
 import { getPrismicClient } from "../../services/prismic"
 import Prismic from '@prismicio/client'
@@ -28,11 +30,10 @@ export default function Posts({ posts, setShowMenu }:PostsProps){
     
 
     return (
-        <Container>
-            <h1>
+        <PageContainer>
+            <Title fontSize={2.2}>
                 What i've been writing
-                <div></div>
-            </h1>
+            </Title>
             <Content>
                 { posts.length == 0 ? (<h2>No posts for now 😢</h2>) : posts.map(post => (
                     <Link key={post.slug} href={`/posts/${post.slug}`}>
@@ -44,7 +45,7 @@ export default function Posts({ posts, setShowMenu }:PostsProps){
                     </Link>
                 ))}
             </Content>
-        </Container>
+        </PageContainer>
     )
 }
 
@@ -74,6 +75,6 @@ export const getStaticProps: GetStaticProps = async() => {
         props : {
             posts
         },
-        revalidate: 60 * 60 * 24
+        revalidate: 1
     }
 }
