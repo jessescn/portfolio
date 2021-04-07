@@ -1,9 +1,9 @@
-import { Container } from "../../styles/posts/styles";
+import { PageContainer } from "../../components/design/PageContainer";
 
 export default function Post(){
     return(
-        <Container>
+        <PageContainer>
             
-        </Container>
+        </PageContainer>
     )
 }
