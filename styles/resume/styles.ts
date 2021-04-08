@@ -31,11 +31,14 @@ export const Experiences = styled.div`
             display: block;
             color: ${props => props.theme.colors.secundary};
             font-size: 1rem;
-            margin: 1rem 0 1.5rem;
+            margin-top: 1rem;
+        }
 
-            &:hover {
-                text-decoration: underline;
-            }
+        time {
+            display: block;
+            color: ${props => props.theme.colors.secundary};
+            font-size: 0.8rem;
+            margin: 0.5rem 0 1rem;
         }
 
         ul {

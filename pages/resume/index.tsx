@@ -40,7 +40,8 @@ export default function Resume({ jobs, setShowMenu }: ResumeProps){
                         (
                         <div key={job.slug}>
                             <h2>{job.role}</h2>
-                            <span><i>at {job.at}</i></span> 
+                            <span><i>at {job.at}</i></span>
+                            <time>{job.startDate} - { job.endDate ?? "Present" }</time>
                             <p>{job.summary}</p>
                             <ul>
                             {job.experiences.map(xp => (
@@ -66,12 +67,12 @@ export const getStaticProps: GetStaticProps = async () => {
             slug: job.uid,
             role: RichText.asText(job.data.role),
             at: RichText.asText(job.data.at),
-            startDate: new Date(job.data.start).toLocaleDateString('pt-BR', {
-                month: 'long',
+            startDate: new Date(job.data.start).toLocaleDateString('en-US', {
+                month: 'short',
                 year: 'numeric'
             }),
-            endDate: job.data.end ? new Date(job.data.end).toLocaleDateString('pt-BR', {
-                month: 'long',
+            endDate: job.data.end ? new Date(job.data.end).toLocaleDateString('en-US', {
+                month: 'short',
                 year: 'numeric'
             }) : null,
             summary: RichText.asText(job.data.summary),
