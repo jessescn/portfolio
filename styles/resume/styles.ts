@@ -3,8 +3,10 @@ import styled from 'styled-components'
 export const Experiences = styled.div`
     max-width: 650px;
     padding: 0 2rem;
-
-    position: relative;
+    -moz-animation:  fadeIn 1s ease-out;
+    -o-animation: fadeIn 1s ease-out;
+    -webkit-animation: fadeIn 1s ease-out;
+    animation: fadeIn 1s ease-out;
 
     .loading {
         position: absolute;

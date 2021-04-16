@@ -9,6 +9,12 @@ export const HomeContainer = styled.main`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
 
     @media(max-width: 720px){
         img {

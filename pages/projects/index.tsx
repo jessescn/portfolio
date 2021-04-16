@@ -2,7 +2,7 @@ import { GetStaticProps } from "next";
 import { useEffect } from "react";
 import { PageContainer } from "../../components/design/PageContainer";
 import { Title } from "../../components/design/Title";
-import { Content } from "../../styles/projects/styles";
+import { Content, Project } from "../../styles/projects/styles";
 
 type Project =  {
     id: number,
@@ -29,15 +29,15 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
                 What i've been doing
             </Title>
             <Content>
-                {projects.map(project => (
-                    <a key={project.id} href={project.link} target="_blank">
+                {projects.map((project) => (
+                    <Project key={project.id} href={project.link} target="_blank">
                         <h1>{project.name}</h1>
                         <strong>{project.description}</strong>
                         <div>
                             <p>Tecnologias</p>
                             <span>{project.languages}</span>
                         </div>
-                    </a>
+                    </Project>
                 ))}
             </Content>
         </PageContainer>
@@ -46,20 +46,28 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
 
 export const getStaticProps: GetStaticProps = async() => {
 
-    const validRepos = ["dt-money", "ignews", "custom-notion-template", "portfolio", "moveit"] 
+    const validRepos = ["dt-money", "ignews", "custom-notion-template", "portfolio", "moveit"]
 
-    const response = await fetch('https://api.github.com/users/jessescn/repos')
+    const response = await fetch('https://api.github.com/users/jessescn/repos', {
+        headers: {
+            Authorization: `token ${process.env.GITHUB_TOKEN}`
+        }
+    })
     const data = await response.json()
 
-    const projects = data.map(repo => {
-        return {
-            id: repo.id,
-            description: repo.description,
-            name: repo.name,
-            link: repo.html_url,
-            languages: repo.language
-        }
-    }).filter(elm => validRepos.includes(elm.name))
+    let projects = []
+    
+    if(data.length){
+        projects = data.map(repo => {
+            return {
+                id: repo.id,
+                description: repo.description,
+                name: repo.name,
+                link: repo.html_url,
+                languages: repo.language
+            }
+        }).filter(elm => validRepos.includes(elm.name))
+    }
 
     return {
         props: {

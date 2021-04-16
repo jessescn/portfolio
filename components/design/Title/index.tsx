@@ -1,19 +1,21 @@
 import { ReactNode } from "react";
-import { Container } from "./styles";
+import { Container, TitleContent } from "./styles";
 
 interface TitleProps {
     children: ReactNode;
-    alignItems?: string;
     fontSize: number;
 }
 
-export function Title({ children, alignItems="center", fontSize }: TitleProps){
+export function Title({ children, fontSize }: TitleProps){
 
-    return(
-      <Container alignItems={alignItems} fontSize={fontSize}>
+
+  return(
+    <Container>
+      <TitleContent fontSize={fontSize}>
         {children}
-        <div></div>
-      </Container>
-    )
+      </TitleContent>
+      <div></div>
+    </Container>
+  )
 
 }

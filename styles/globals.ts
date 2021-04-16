@@ -43,4 +43,16 @@ export default createGlobalStyle<GlobalProps>`
     color: inherit;
     text-decoration: none;
   }
+
+  @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            top: -20px;
+        }
+
+        100% {
+            top: 0;
+            opacity: 1;
+        }
+    }
 `
