@@ -11,6 +11,10 @@ export default createGlobalStyle<GlobalProps>`
       box-sizing: border-box;
   }
 
+  :root {
+    --animation-dur: 800ms;
+  }
+
   body {
     background: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.text};

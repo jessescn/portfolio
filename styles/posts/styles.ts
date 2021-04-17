@@ -4,10 +4,10 @@ import { shade } from 'polished'
 export const Content = styled.div`
 
     max-width: 650px;
-    -moz-animation:  fadeIn 1s ease-out;
-    -o-animation: fadeIn 1s ease-out;
-    -webkit-animation: fadeIn 1s ease-out;
-    animation: fadeIn 1s ease-out;
+    -moz-animation:  fadeIn var(--animation-dur) ease-out;
+    -o-animation: fadeIn var(--animation-dur) ease-out;
+    -webkit-animation: fadeIn var(--animation-dur) ease-out;
+    animation: fadeIn var(--animation-dur) ease-out;
 
     h2 {
         font-weight: 400;

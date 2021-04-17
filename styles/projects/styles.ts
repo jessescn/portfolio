@@ -42,10 +42,10 @@ export const Project = styled.a`
     justify-content: space-between;
 
     transition: all 0.2s;
-    -moz-animation:  projectFadeIn 1s ease-out;
-    -o-animation: projectFadeIn 1s ease-out;
-    -webkit-animation: projectFadeIn 1s ease-out;
-    animation: projectFadeIn 1s ease-out;
+    -moz-animation:  projectFadeIn var(--animation-dur) ease-out;
+    -o-animation: projectFadeIn var(--animation-dur) ease-out;
+    -webkit-animation: projectFadeIn var(--animation-dur) ease-out;
+    animation: projectFadeIn var(--animation-dur) ease-out;
 
     h1 {
         font-size: 1.3rem;

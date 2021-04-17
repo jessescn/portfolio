@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import GlobalStyles from '../styles/globals'
 import { ThemeProvider } from 'styled-components'
@@ -13,9 +13,19 @@ function MyApp({ Component, pageProps }) {
   const [theme, setTheme] = useState(dark)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
 
+  useEffect(() => {
+    const currentTheme = localStorage.getItem("theme")
+    if(currentTheme){
+      setTheme(JSON.parse(currentTheme))
+    }
+  }, [])
+
   const toggleTheme = () => {
-    setTheme(theme.title === "light" ? dark : light)
+    const newTheme = theme.title === "light" ? dark : light
+    setTheme(newTheme)
+    localStorage.setItem("theme", JSON.stringify(newTheme))
   }
+  
 
   return (
     <ThemeProvider theme={theme}>

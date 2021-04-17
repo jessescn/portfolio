@@ -7,10 +7,10 @@ interface TitleProps {
 export const TitleContent = styled.h1<TitleProps>`
     font-weight: 400;
     font-size: ${props => `${props.fontSize}rem`};
-    -moz-animation:  delayDisplay 1s;
-    -o-animation: delayDisplay 1s;
-    -webkit-animation: delayDisplay 1s;
-    animation: delayDisplay 1s;
+    -moz-animation:  delayDisplay var(--animation-dur) ease-out;
+    -o-animation: delayDisplay var(--animation-dur) ease-out;
+    -webkit-animation: delayDispla yvar(--animation-dur) ease-out;
+    animation: delayDisplay var(--animation-dur) ease-out;
 
     @keyframes delayDisplay {
       from {
@@ -41,10 +41,10 @@ export const Container = styled.div`
       height: 5px;
       background: ${props => props.theme.colors.secundary};
       border-radius: 5px;
-      -moz-animation:  divAnim 1s;
-      -o-animation: divAnim 1s;
-      -webkit-animation: divAnim 1s;
-      animation: divAnim 1s;
+      -moz-animation:  divAnim var(--animation-dur) ease-out;
+      -o-animation: divAnim var(--animation-dur) ease-out;
+      -webkit-animation: divAnim var(--animation-dur) ease-out;
+      animation: divAnim var(--animation-dur) ease-out;
     }
 
     @keyframes divAnim {
@@ -52,7 +52,7 @@ export const Container = styled.div`
           width: 0px;
         }
 
-        60% {
+        50% {
           width: 100%;
         }
 
