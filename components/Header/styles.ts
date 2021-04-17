@@ -2,10 +2,20 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
    height: 5rem;
+
+   @keyframes displaySide {
+      from {left: 60vw}
+      to {left: 0}
+   }
+
+   @keyframes displayOut {
+      from {left: 0}
+      to {left: 100vw;}
+   }
 `
 
 export const Content = styled.div`
-   max-width: 650px;
+   max-width: 600px;
    margin: 0 auto;
 
    .themeButton {
@@ -70,8 +80,6 @@ export const Content = styled.div`
    
    @media (max-width: 720px){
 
-      position: relative;
-
       div.menu {
          display: block;
          position: absolute;
@@ -81,34 +89,59 @@ export const Content = styled.div`
       }
 
       nav {
-         display: none;
+         display: flex;
+         visibility: hidden;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         z-index: 10;
+         position: absolute;
+         right: 0;
+         left: 0;
+         bottom: 0;
+         top: 0;
+         height: 100vh;
+         background: ${props => props.theme.colors.background};
       }
 
-      &.on {
-
+      &.out {
          nav {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            position: absolute;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            top: 0;
-            height: 100vh;
-            background: ${props => props.theme.colors.background};
+            transition-property: visibility;
+            transition-delay: 400ms;
+            -moz-animation:  displayOut 400ms ease-out;
+            -o-animation: displayOut 400ms ease-out;
+            -webkit-animation: displayOut 400ms ease-out;
+            animation: displayOut 400ms ease-out;
+
+            a {
+               display: none;
+            }
+         }
+      } 
+
+      &.on {
+         
+         nav {
+            visibility: inherit;
+            -moz-animation:  displaySide 300ms ease-out;
+            -o-animation: displaySide 300ms ease-out;
+            -webkit-animation: displaySide 300ms ease-out;
+            animation: displaySide 300ms ease-out;
 
             a {
                display: block;
                text-align: center;
                font-size: 2rem;
                line-height: 4rem;
+               -moz-animation:  fadeIn 300ms ease-out;
+               -o-animation: fadeIn 300ms ease-out;
+               -webkit-animation: fadeIn 300ms ease-out;
+               animation: fadeIn 300ms ease-out;
             }
          }
 
          div.menu {
+
             .one {
                transform: rotate(45deg) translate(7px, 7px);
             }

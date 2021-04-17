@@ -49,7 +49,9 @@ export default createGlobalStyle<GlobalProps>`
             opacity: 0;
             top: -20px;
         }
-
+        66% {
+          opacity: 0;
+        }
         100% {
             top: 0;
             opacity: 1;

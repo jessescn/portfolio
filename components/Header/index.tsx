@@ -22,7 +22,7 @@ export function Header({ toggleTheme, showMenu, setShowMenu }: HeaderProps){
 
     return(
         <Container>
-            <Content className={showMenu ? "on" : ""}>
+            <Content className={showMenu ? "on" : "out"}>
                 <SwitchButton
                     className="themeButton"
                     onChange={toggleTheme}

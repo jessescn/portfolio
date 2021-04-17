@@ -13,6 +13,22 @@ export const Content = styled.section`
     @media (max-width: 600px){
         grid-template-columns: 1fr;
     }
+
+    
+    @keyframes projectFadeIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        66% {
+            opacity: 0;
+            transform: scale(1.02);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    } 
 `
 
 export const Project = styled.a`
@@ -30,24 +46,6 @@ export const Project = styled.a`
     -o-animation: projectFadeIn 1s ease-out;
     -webkit-animation: projectFadeIn 1s ease-out;
     animation: projectFadeIn 1s ease-out;
-
-
-    @keyframes projectFadeIn {
-        0% {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-
-        66% {
-            opacity: 0;
-            transform: scale(1.02);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    } 
 
     h1 {
         font-size: 1.3rem;
