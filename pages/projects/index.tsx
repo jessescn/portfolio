@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps = async() => {
 
     const validRepos = ["sos-money", "ignews", "custom-notion-template", "portfolio", "moveit"]
 
-    const response = await fetch('https://api.github.com/users/jessescn/repos', {
+    const response = await fetch('https://api.github.com/users/jessescn/repos?per_page=100', {
         headers: {
             Authorization: `token ${process.env.GITHUB_TOKEN}`
         }
