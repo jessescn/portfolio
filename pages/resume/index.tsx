@@ -52,6 +52,7 @@ export default function Resume({ jobs, setShowMenu }: ResumeProps){
                         )
                     )
                 }
+            <a href="/files/CV - Jessé Souza.pdf" download>Download CV</a>
             </Experiences>
         </PageContainer>
     )

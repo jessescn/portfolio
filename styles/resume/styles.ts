@@ -52,4 +52,21 @@ export const Experiences = styled.div`
         }
 
     }
+
+    a {
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+
+        background: ${props => props.theme.colors.primary};
+        color: ${props => props.theme.colors.background};
+
+        font-weight: bold;
+        font-size: 1rem;
+
+        transition: font-size 0.2s ease;
+
+        &:hover {
+            font-size: 1.05rem;
+        }
+    }
 `
