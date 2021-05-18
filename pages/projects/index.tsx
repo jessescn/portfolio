@@ -4,6 +4,8 @@ import { PageContainer } from "../../components/design/PageContainer";
 import { Title } from "../../components/design/Title";
 import { Content, Project } from "../../styles/projects/styles";
 
+import Head from 'next/head'
+
 type Project =  {
     id: number,
     description: string,
@@ -25,6 +27,9 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
     
     return(
         <PageContainer>
+            <Head>
+                <title>Projects | Jessé Souza</title>
+            </Head>
             <Title fontSize={2.2}>
                 What i've been doing
             </Title>

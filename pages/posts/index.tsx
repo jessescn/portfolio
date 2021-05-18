@@ -10,6 +10,8 @@ import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
 import { useEffect } from "react"
 
+import Head from 'next/head'
+
 type Post = {
     slug: string,
     title: string,
@@ -31,6 +33,9 @@ export default function Posts({ posts, setShowMenu }:PostsProps){
 
     return (
         <PageContainer>
+            <Head>
+                <title>Posts | Jessé Souza</title>
+            </Head>
             <Title fontSize={2.2}>
                 What i've been writing
             </Title>

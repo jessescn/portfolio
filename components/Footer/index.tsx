@@ -12,9 +12,9 @@ export function Footer(){
         <Container>
             <p>Find me on</p>
             <div>
-                <a href="https://github.com/jessescn" target="_blank"><FaGithub color={colors.primary} size="2rem"/></a>
-                <a href="https://www.linkedin.com/in/jess%C3%A9-souza-15aa56190/" target="_blank"><FaLinkedin color={colors.primary} size="2rem"/></a>
-                <a href="https://twitter.com/itsjessescn" target="_blank"><FaTwitter color={colors.primary} size="2rem"/></a>
+                <a href="https://github.com/jessescn" rel="noopener" target="_blank"><FaGithub color={colors.primary} size="2rem"/></a>
+                <a href="https://www.linkedin.com/in/jess%C3%A9-souza-15aa56190/" rel="noopener" target="_blank"><FaLinkedin color={colors.primary} size="2rem"/></a>
+                <a href="https://twitter.com/itsjessescn" rel="noopener" target="_blank"><FaTwitter color={colors.primary} size="2rem"/></a>
             </div>
         </Container>
     )

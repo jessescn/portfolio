@@ -2,6 +2,8 @@ import { getPrismicClient } from "../../services/prismic"
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
 
+import Head from 'next/head'
+
 import { Experiences } from "../../styles/resume/styles"
 
 import { GetStaticProps } from "next"
@@ -32,6 +34,9 @@ export default function Resume({ jobs, setShowMenu }: ResumeProps){
 
     return(
         <PageContainer>
+            <Head>
+                <title>Resume | Jessé Souza</title>
+            </Head>
             <Title fontSize={2.2}>
                 Until Now
             </Title>
