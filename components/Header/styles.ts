@@ -15,7 +15,7 @@ export const Container = styled.header`
 `
 
 export const Content = styled.div`
-   max-width: 600px;
+   max-width: 400px;
    margin: 0 auto;
 
    .themeButton {

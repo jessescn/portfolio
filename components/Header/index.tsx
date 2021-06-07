@@ -45,9 +45,9 @@ export function Header({ toggleTheme, showMenu, setShowMenu }: HeaderProps){
                     <ActiveLink activeClassName="active" href="/projects">
                         <a>Projects</a>
                     </ActiveLink>
-                    <ActiveLink activeClassName="active" href="/posts">
+                    {/* <ActiveLink activeClassName="active" href="/posts">
                         <a>Posts</a>
-                    </ActiveLink>
+                    </ActiveLink> */}
                 </nav>
                 <div className={`menu ${showMenu ? "close" : ""}`} onClick={handleToggleMenu}>
                     <div className="one"></div>
