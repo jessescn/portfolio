@@ -24,6 +24,7 @@ export function Header({ toggleTheme, showMenu, setShowMenu }: HeaderProps){
         <Container>
             <Content className={showMenu ? "on" : "out"}>
                 <SwitchButton
+                    data-testid="switch-btn"
                     className="themeButton"
                     onChange={toggleTheme}
                     checked={title === "dark"}
@@ -49,7 +50,7 @@ export function Header({ toggleTheme, showMenu, setShowMenu }: HeaderProps){
                         <a>Posts</a>
                     </ActiveLink> */}
                 </nav>
-                <div className={`menu ${showMenu ? "close" : ""}`} onClick={handleToggleMenu}>
+                <div data-testid="mobile-menu" className={`menu ${showMenu ? "close" : ""}`} onClick={handleToggleMenu}>
                     <div className="one"></div>
                     <div className="two"></div>
                     <div className="three"></div>

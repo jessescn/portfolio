@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
     setTheme(newTheme)
     localStorage.setItem("theme", JSON.stringify(newTheme))
   }
-  
+    
 
   return (
     <ThemeProvider theme={theme}>
