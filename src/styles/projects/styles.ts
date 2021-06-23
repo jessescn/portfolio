@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 export const Content = styled.section`
 
+    text-align: center;
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 2rem 4rem;

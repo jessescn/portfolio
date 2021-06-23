@@ -40,51 +40,59 @@ export default function Resume({ jobs, setShowMenu }: ResumeProps){
             <Title fontSize={2.2}>
                 Until Now
             </Title>
-            <Experiences>
-                {   jobs.map(job =>
-                        (
-                        <div key={job.slug}>
-                            <h2>{job.role}</h2>
-                            <span><i>at {job.at}</i></span>
-                            <time>{job.startDate} - { job.endDate ?? "Present" }</time>
-                            <p>{job.summary}</p>
-                            <ul>
-                            {job.experiences.map(xp => (
-                                <li key={xp}>{xp}</li>
-                            ))}
-                            </ul>
-                        </div> 
+            { jobs.length ?
+                <Experiences data-testid="job-container">
+                    {   jobs.map(job =>
+                            (
+                            <div key={job.slug}>
+                                <h2>{job.role}</h2>
+                                <span><i>at {job.at}</i></span>
+                                <time>{job.startDate} - { job.endDate ?? "Present" }</time>
+                                <p>{job.summary}</p>
+                                <ul>
+                                {job.experiences.map(xp => (
+                                    <li key={xp}>{xp}</li>
+                                ))}
+                                </ul>
+                            </div> 
+                            )
                         )
-                    )
-                }
-            <a href="/files/CV - Jessé Souza.pdf" download>Download CV</a>
-            </Experiences>
+                    }
+                <a href="/files/CV - Jessé Souza.pdf" download>Download CV</a>
+                </Experiences> : (<h2>Something go wrong</h2>)
+            }
         </PageContainer>
     )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
     const prismic = getPrismicClient()
-    const response = await prismic.query(Prismic.Predicates.at('document.type', 'jobs'),
-                { orderings: '[my.jobs.end]', pageSize: 20})
+    let jobs = []
 
-    const jobs = response.results.map(job => {
-        return {
-            slug: job.uid,
-            role: RichText.asText(job.data.role),
-            at: RichText.asText(job.data.at),
-            startDate: new Date(job.data.start).toLocaleDateString('en-US', {
-                month: 'short',
-                year: 'numeric'
-            }),
-            endDate: job.data.end ? new Date(job.data.end).toLocaleDateString('en-US', {
-                month: 'short',
-                year: 'numeric'
-            }) : null,
-            summary: RichText.asText(job.data.summary),
-            experiences: job.data.experiences.map(exp => exp.text)
-        }})
-    
+    try {
+        const response = await prismic.query(Prismic.Predicates.at('document.type', 'jobs'),
+                    { orderings: '[my.jobs.end]', pageSize: 20})
+            
+        jobs = response.results.map(job => {            
+            return {
+                slug: job.uid,
+                role: RichText.asText(job.data.role),
+                at: RichText.asText(job.data.at),
+                startDate: new Date(job.data.start).toLocaleDateString('en-US', {
+                    month: 'short',
+                    year: 'numeric'
+                }),
+                endDate: job.data.end ? new Date(job.data.end).toLocaleDateString('en-US', {
+                    month: 'short',
+                    year: 'numeric'
+                }) : null,
+                summary: RichText.asText(job.data.summary),
+                experiences: job.data.experiences.map(exp => exp.text)
+            }})
+    } catch(e){           
+        console.log("prismic jobs request error");
+    }
+
     return {
         props:{
             jobs

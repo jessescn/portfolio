@@ -40,7 +40,7 @@ export default function Posts({ posts, setShowMenu }:PostsProps){
                 What i've been writing
             </Title>
             <Content>
-                { posts.length == 0 ? (<h2>No posts for now 😢</h2>) : posts.map(post => (
+                { posts.length == 0 ? (<h2>No posts for now</h2>) : posts.map(post => (
                     <Link key={post.slug} href={`/posts/${post.slug}`}>
                         <a>
                             <time>{post.updatedAt}</time>
@@ -56,25 +56,31 @@ export default function Posts({ posts, setShowMenu }:PostsProps){
 
 export const getStaticProps: GetStaticProps = async() => {
     const prismic = getPrismicClient()
-    const response = await prismic.query([
-        Prismic.Predicates.at("document.type", "posts")],
-        {
-            fetch: ['posts.title', 'posts.content'],
-            pageSize: 100
-        })
+    let posts = []
+    try {
 
-    const posts = response.results.map(post => {
-        return {
-            slug: post.uid,
-            title: RichText.asText(post.data.title),
-            excerpt: post.data.content.find(content => content.type === "paragraph")?.text ?? "",
-            updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric'
+        const response = await prismic.query([
+            Prismic.Predicates.at("document.type", "posts")],
+            {
+                fetch: ['posts.title', 'posts.content'],
+                pageSize: 100
             })
-        }
-    })
+    
+        posts = response.results.map(post => {
+            return {
+                slug: post.uid,
+                title: RichText.asText(post.data.title),
+                excerpt: post.data.content.find(content => content.type === "paragraph")?.text ?? "",
+                updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                })
+            }
+        })
+    } catch(e){
+        console.log("Prismic API posts failed");
+    }
 
     return {
         props : {

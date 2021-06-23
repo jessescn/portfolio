@@ -5,6 +5,7 @@ This site was made using those tecnologies:
 - React
 - Typescript
 - Styled Components
+- Jest + @testing-library
 
 Integrated with PrismicCMS.
 

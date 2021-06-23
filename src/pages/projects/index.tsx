@@ -33,6 +33,8 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
             <Title fontSize={2.2}>
                 What i've been doing
             </Title>
+            {
+            !projects.length ? (<h2>No projects found</h2>):
             <Content>
                 {projects.map((project) => (
                     <Project key={project.id} href={project.link} target="_blank">
@@ -45,6 +47,7 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
                     </Project>
                 ))}
             </Content>
+            }
         </PageContainer>
     )   
 }
@@ -52,26 +55,30 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
 export const getStaticProps: GetStaticProps = async() => {
 
     const validRepos = ["sos-money", "ignews", "custom-notion-template", "portfolio", "moveit"]
-
-    const response = await fetch('https://api.github.com/users/jessescn/repos?per_page=100', {
-        headers: {
-            Authorization: `token ${process.env.GITHUB_TOKEN}`
-        }
-    })
-    const data = await response.json()
-
     let projects = []
-    
-    if(data.length){
-        projects = data.map(repo => {
-            return {
-                id: repo.id,
-                description: repo.description,
-                name: repo.name,
-                link: repo.html_url,
-                languages: repo.language
+
+    try {
+        const response = await fetch('https://api.github.com/users/jessescn/repos?per_page=100', {
+            headers: {
+                Authorization: `token ${process.env.GITHUB_TOKEN}`
             }
-        }).filter(elm => validRepos.includes(elm.name))
+        })
+        
+        const data = await response.json()
+    
+        if(data.length){
+            projects = data.map(repo => {
+                return {
+                    id: repo.id,
+                    description: repo.description,
+                    name: repo.name,
+                    link: repo.html_url,
+                    languages: repo.language
+                }
+            }).filter(elm => validRepos.includes(elm.name))
+        }
+    } catch(e){
+        console.log("Github API failure")
     }
 
     return {
