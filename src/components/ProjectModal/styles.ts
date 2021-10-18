@@ -77,7 +77,6 @@ export const Wrapper = styled.div`
     }
   }
 
-
   @keyframes modalContentFadeIn {
     0% {
       opacity:0;
@@ -107,7 +106,7 @@ export const Wrapper = styled.div`
       .modal {
         background-color:transparent;
         animation: modalFadeIn .1s .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        h2, a,p, h3, .technologies {
+        .title, h2, .technologies, .info {
           opacity:0;
           position:relative;
           animation: modalContentFadeIn .3s 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
@@ -127,7 +126,7 @@ export const Wrapper = styled.div`
       animation: fadeOut .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
       .modal {
         animation: modalFadeOut .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        h2, a,p, h3, .technologies {
+        .title, h2, .technologies, .info {
           animation: modalContentFadeOut .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
         }
       }
@@ -151,6 +150,15 @@ export const Modal = styled.div`
   padding: 2.5rem;
   border: 3px solid ${props => props.theme.colors.text};
 
+  .info {
+    display: flex;
+    flex-wrap: wrap;
+
+    > div {
+      width: 50%;
+    }
+  }
+
   .overview {
     height: 300px;
     width: 100%;
@@ -173,7 +181,7 @@ export const Modal = styled.div`
     }
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 950px) {
     width: 80vw;
     max-width: none;
   }

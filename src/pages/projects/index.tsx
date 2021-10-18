@@ -1,22 +1,29 @@
 import { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
-import { PageContainer } from "../../components/design/PageContainer";
 import { Title } from "../../components/design/Title";
-import { Content, Project } from "../../styles/projects/styles";
+import { Content, Project, Container as PageContainer } from "../../styles/projects/styles";
 
 import Head from 'next/head'
 import { ProjectModal } from "../../components/ProjectModal";
+import { formatProjectName } from "../../utils/format";
 
 type Language = {
     id: string,
     value: number
 }
 
+type Contributor = {
+    username: string,
+    avatar: string,
+    link: string,
+  }
+
 type Project =  {
     id: number,
     description: string,
     name: string,
     link: string,
+    contributors: Contributor[],
     languages: Language[]
 }
 
@@ -27,7 +34,7 @@ interface ProjectsProps {
 
 export default function Projects({ projects, setShowMenu }: ProjectsProps){
 
-    const [modalProject, setModalProject] =  useState({ id: 0, description: "", name: "", link: "", languages: [] });
+    const [modalProject, setModalProject] =  useState({ id: 0, description: "", name: "", link: "", languages: [], contributors: [] });
     const [isModalOpen, setIsModalOpen] = useState(false);
  
     useEffect(()=> {
@@ -52,7 +59,7 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
             <Content>
                 {projects.map((project) => (
                     <Project key={project.id} onClick={() => handleOpenModal(project) }>
-                        <h1>{project.name}</h1>
+                        <h1>{formatProjectName(project.name)}</h1>
                         <strong>{project.description}</strong>
                         <div>
                             <p>Technologies</p>
@@ -91,15 +98,32 @@ export const getStaticProps: GetStaticProps = async() => {
                     }
                 })
 
-                const data = await jsonResponse.json();
+                let data = await jsonResponse.json();
                 const languages = Object.keys(data).map((key) => { return { id: key, value: data[key] }})
-                           
+
+                const response = await fetch(`https://api.github.com/repos/${repo.full_name}/contributors`, {
+                    headers: {
+                        Authorization: `token ${process.env.GITHUB_TOKEN}`
+                    }
+                })
+
+                data = await response.json()
+
+                const contributors = data.map(elm => {            
+                    return {
+                        username: elm.login,
+                        avatar: elm.avatar_url,
+                        link: elm.url
+                    }
+                })
+                                
                 return {
                     id: repo.id,
                     description: repo.description,
                     name: repo.name,
                     link: repo.html_url,
-                    languages: languages
+                    contributors: contributors,
+                    languages,
                 }
             }))
 

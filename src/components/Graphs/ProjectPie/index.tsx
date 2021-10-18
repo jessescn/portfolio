@@ -20,8 +20,7 @@ const ProjectPie = ({ data }: ProjectPieProps) => {
           ...elm,
           value: ((elm.value / total) * 100).toFixed(2)
       }
-  })
-  
+  })  
 
   return (  
     <ResponsivePie
@@ -39,7 +38,7 @@ const ProjectPie = ({ data }: ProjectPieProps) => {
         arcLinkLabelsThickness={3}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
+        arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'darker', 3 ] ] }}
         legends={[
             {
                 anchor: 'right',
