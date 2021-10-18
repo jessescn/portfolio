@@ -9,6 +9,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@nivo/bar": "^0.74.0",
+    "@nivo/core": "^0.74.0",
+    "@nivo/pie": "^0.74.0",
     "@prismicio/client": "^4.0.0",
     "@types/babel__core": "^7.1.14",
     "@types/jest": "^26.0.23",

@@ -1,8 +1,22 @@
 import styled from 'styled-components'
 
-export const Content = styled.section`
+export const Container = styled.main`
+  height: calc(100vh - 13rem);
+  max-width: 1120px;
+  padding: 4rem 2rem;
+  margin: 0 auto;
 
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 900px){
+    min-height: calc(100vh - 13rem);
+    height: fit-content;
+  }
+`
+
+export const Content = styled.section`
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -33,7 +47,7 @@ export const Content = styled.section`
     } 
 `
 
-export const Project = styled.a`
+export const Project = styled.div`
     max-width: 24rem;
     border: 3px solid ${props => props.theme.colors.primary};
     padding: 0.6rem;

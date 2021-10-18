@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
    height: 5rem;
-
+   
    @keyframes displaySide {
       from {left: 60vw}
       to {left: 0}

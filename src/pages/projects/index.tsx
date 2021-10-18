@@ -1,17 +1,31 @@
 import { GetStaticProps } from "next";
-import { useEffect } from "react";
-import { PageContainer } from "../../components/design/PageContainer";
+import { useEffect, useState } from "react";
 import { Title } from "../../components/design/Title";
-import { Content, Project } from "../../styles/projects/styles";
+import { Content, Project, Container as PageContainer } from "../../styles/projects/styles";
 
 import Head from 'next/head'
+import { ProjectModal } from "../../components/ProjectModal";
+import { formatProjectName } from "../../utils/format";
+import { getGithubRepos } from "../../services/github";
+
+type Language = {
+    id: string,
+    value: number
+}
+
+type Contributor = {
+    username: string,
+    avatar: string,
+    link: string,
+  }
 
 type Project =  {
     id: number,
     description: string,
     name: string,
     link: string,
-    languages: string[]
+    contributors: Contributor[],
+    languages: Language[]
 }
 
 interface ProjectsProps {
@@ -21,9 +35,17 @@ interface ProjectsProps {
 
 export default function Projects({ projects, setShowMenu }: ProjectsProps){
 
+    const [modalProject, setModalProject] =  useState({ id: 0, description: "", name: "", link: "", languages: [], contributors: [] });
+    const [isModalOpen, setIsModalOpen] = useState(false);
+ 
     useEffect(()=> {
         setShowMenu(false)
     },[])
+
+    const handleOpenModal = (project) => {
+        setModalProject(project)
+        setIsModalOpen(true)
+    }
     
     return(
         <PageContainer>
@@ -37,46 +59,41 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps){
             !projects.length ? (<h2>No projects found</h2>):
             <Content>
                 {projects.map((project) => (
-                    <Project key={project.id} href={project.link} target="_blank">
-                        <h1>{project.name}</h1>
+                    <Project key={project.id} onClick={() => handleOpenModal(project) }>
+                        <h1>{formatProjectName(project.name)}</h1>
                         <strong>{project.description}</strong>
                         <div>
-                            <p>Tecnologias</p>
-                            <span>{project.languages}</span>
+                            <p>Technologies</p>
+                            { project.languages.map((language, i) => (
+                                <span key={language.id}>{`${language.id} ${i !== project.languages.length - 1 ? ',' : ''} `}</span>
+                            ))}
                         </div>
                     </Project>
                 ))}
             </Content>
             }
+            <ProjectModal closeModal={() => { setIsModalOpen(false) }} isModalOpen={isModalOpen} project={modalProject}/>
         </PageContainer>
     )   
 }
 
 export const getStaticProps: GetStaticProps = async() => {
 
-    const validRepos = ["sos-money", "ignews", "custom-notion-template", "portfolio", "moveit"]
     let projects = []
 
     try {
-        const response = await fetch('https://api.github.com/users/jessescn/repos?per_page=100', {
-            headers: {
-                Authorization: `token ${process.env.GITHUB_TOKEN}`
-            }
-        })
-        
-        const data = await response.json()
-    
-        if(data.length){
-            projects = data.map(repo => {
-                return {
-                    id: repo.id,
-                    description: repo.description,
-                    name: repo.name,
-                    link: repo.html_url,
-                    languages: repo.language
-                }
-            }).filter(elm => validRepos.includes(elm.name))
-        }
+        const requestRepos = [
+          {
+            user: 'jessescn',
+            repos: ["sos-money", "ignews", "custom-notion-template", "portfolio", "moveit", "dj-marques", "go-go"]
+          },
+          {
+            user: 'OpenDevUFCG',
+            repos: ["opendevufcg.org"]
+          }
+        ]
+
+        projects = await getGithubRepos(requestRepos, process.env.GITHUB_TOKEN);
     } catch(e){
         console.log("Github API failure")
     }
