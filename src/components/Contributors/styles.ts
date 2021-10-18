@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
 export const ContributorWrapper = styled.div`
+  margin: 2rem 0;
 
-margin: 2rem 0;
+  div {
+    padding: 0.5rem 0;
+    max-height: 300px;
+    overflow-y: auto;
+  }
 
   a {
     img {

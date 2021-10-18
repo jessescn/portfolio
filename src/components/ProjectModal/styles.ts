@@ -143,10 +143,11 @@ export const Modal = styled.div`
   position: relative;
   background-color: ${props => props.theme.colors.background};
   min-height: 450px;
+  max-height: 80vh;
   width: 60vw;
   max-width: 850px;
   z-index: 4;
-
+  
   padding: 2.5rem;
   border: 3px solid ${props => props.theme.colors.text};
 
@@ -154,7 +155,7 @@ export const Modal = styled.div`
     display: flex;
     flex-wrap: wrap;
 
-    > div {
+    .technologies {
       width: 50%;
     }
   }

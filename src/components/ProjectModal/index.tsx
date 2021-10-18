@@ -50,20 +50,30 @@ export function ProjectModal({ project, isModalOpen, closeModal }: ProjectModalP
             <p>{ description }</p>
           </div>
           <div className="info">
-            <div className="technologies">
-              <Subtitle>Technologies</Subtitle>
-              <div className="technologies">
-                  { languages.map((language, idx) => (
-                    <span key={language.id}>{`${language.id} ${idx !== languages.length - 1 ? '-' : ''} `}</span>
-                  ))}
-              </div>
-            </div>
+            { 
+            languages.length > 0 && (
+                <div className="technologies">
+                  <Subtitle>Technologies</Subtitle>
+                  <div className="technologies">
+                      { languages.map((language, idx) => (
+                        <span key={language.id}>{`${language.id} ${idx !== languages.length - 1 ? ',' : ''} `}</span>
+                      ))}
+                  </div>
+                </div>
+              )
+            }
             <Contributors contributors={contributors} />
           </div>
-          <Subtitle>Metrics</Subtitle>
-          <div className="overview">
-            <ProjectPie data={languages} />
-          </div>
+          {
+            languages.length > 0 && (
+                <>
+                  <Subtitle>Metrics</Subtitle>
+                  <div className="overview">
+                    <ProjectPie data={languages} />
+                  </div>
+                </>
+              )
+            }
           <AiOutlineClose size="1.5rem" className="closeButton" onClick={closeModal} />
         </Modal>
       </div>
