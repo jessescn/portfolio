@@ -2,8 +2,6 @@ import styled from 'styled-components'
 
 export const Content = styled.section`
 
-    text-align: center;
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 2rem 4rem;
@@ -33,7 +31,7 @@ export const Content = styled.section`
     } 
 `
 
-export const Project = styled.a`
+export const Project = styled.div`
     max-width: 24rem;
     border: 3px solid ${props => props.theme.colors.primary};
     padding: 0.6rem;
