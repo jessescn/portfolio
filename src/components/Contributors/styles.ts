@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const ContributorWrapper = styled.div`
-  margin: 2rem 0;
-
   div {
     padding: 0.5rem 0;
     max-height: 300px;
@@ -23,12 +21,18 @@ export const ContributorWrapper = styled.div`
         transform: scale(1.08);
       }
     }
-  } 
+  }
 
-`
 
-export const Title = styled.a`
-  font-weight: bold;
-  font-size: 1.4rem;
-  margin: 2rem 0 1rem;
+  @media (max-width: 950px) {
+    margin: 1.5rem 0 0;
+
+    a {
+        img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
+
 `

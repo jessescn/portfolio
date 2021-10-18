@@ -141,17 +141,19 @@ export const Wrapper = styled.div`
 
 export const Modal = styled.div`
   position: relative;
-  background-color: ${props => props.theme.colors.background};
+  background: ${props => props.theme.colors.background} !important;
   min-height: 450px;
-  max-height: 80vh;
+  max-height: 85vh;
   width: 60vw;
-  max-width: 850px;
+  width: 850px;
   z-index: 4;
+  overflow-y: auto;
   
   padding: 2.5rem;
   border: 3px solid ${props => props.theme.colors.text};
 
   .info {
+    padding: 2rem 0 1rem;
     display: flex;
     flex-wrap: wrap;
 
@@ -174,7 +176,6 @@ export const Modal = styled.div`
   @media (max-width: 1240px) {
     .overview {
       flex-direction: column;
-      overflow: scroll;
 
       & > div {
         width: 100% !important;
@@ -185,6 +186,15 @@ export const Modal = styled.div`
   @media (max-width: 950px) {
     width: 80vw;
     max-width: none;
+    padding: 1.5rem;
+
+    .info {
+      flex-direction: column;
+
+      .technologies {
+        width: 100%;
+      }
+    }
   }
 
   .closeButton {
@@ -201,10 +211,18 @@ export const Title = styled.a`
   font-size: 2.5rem;
   color: ${props => props.theme.colors.secundary};
   margin-bottom: 1rem;
+
+  @media (max-width: 950px) {
+    font-size: 2rem;
+  }
 `
 
 export const Subtitle = styled.h2`
   font-weight: bold;
   font-size: 1.4rem;
-  margin: 2rem 0 1rem;
+  margin-bottom: 1rem;
+
+  @media (max-width: 950px) {
+    font-size: 1.2rem;
+  }
 `

@@ -1,4 +1,6 @@
-import { ContributorWrapper, Title } from "./styles";
+import { ContributorWrapper } from "./styles";
+
+import { Subtitle } from '../ProjectModal/styles'
 
 type Contributor = {
   username: string,
@@ -14,7 +16,7 @@ const Contributors = ({ contributors }: ContributorsProps) => {
   
   return (
     <ContributorWrapper>
-      <Title>Contributors</Title>
+      <Subtitle>Contributors</Subtitle>
       <div>
         {
           contributors.map(({ avatar, link, username }) => (
