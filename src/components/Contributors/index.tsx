@@ -1,6 +1,5 @@
+import { Subtitle } from "../design/Subtitle";
 import { ContributorWrapper } from "./styles";
-
-import { Subtitle } from '../ProjectModal/styles'
 
 type Contributor = {
   username: string,
@@ -20,7 +19,7 @@ const Contributors = ({ contributors }: ContributorsProps) => {
       <div>
         {
           contributors.map(({ avatar, link, username }) => (
-            <a href={link} key={username}>
+            <a href={link} key={username} target="_blank">
               <img src={avatar} alt={`avatar ${username}`} />
             </a>
           ))

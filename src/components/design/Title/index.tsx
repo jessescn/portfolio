@@ -8,7 +8,6 @@ interface TitleProps {
 
 export function Title({ children, fontSize }: TitleProps){
 
-
   return(
     <Container>
       <TitleContent fontSize={fontSize}>

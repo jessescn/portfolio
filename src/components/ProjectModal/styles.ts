@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   left: 0;
   z-index: 11;
   
-  &.out {
+  &.modal-close {
     display: none;
   }
 
@@ -99,7 +99,7 @@ export const Wrapper = styled.div`
     }
   }
 
-  &.in {
+  &.modal-open {
     transform:scale(1);
     .modal-background {
       animation: fadeIn .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
@@ -115,7 +115,7 @@ export const Wrapper = styled.div`
     }
   }
 
-  &.out {
+  &.modal-close {
     animation: quickScaleDown 0s .2s linear forwards;
     .modal-background {
       animation: fadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
@@ -163,6 +163,13 @@ export const Modal = styled.div`
   .overview > div {
     width: 50% !important;
   }
+  
+  .closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+  }
 
   @media (max-width: 1240px) {
     .overview {
@@ -178,6 +185,10 @@ export const Modal = styled.div`
     width: 80vw;
     max-width: none;
     padding: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    width: 95vw;
 
     .info {
       flex-direction: column;
@@ -186,17 +197,6 @@ export const Modal = styled.div`
         width: 100%;
       }
     }
-  }
-
-  .closeButton {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
-  }
-
-  @media (max-width: 600px) {
-    width: 95vw;
 
     .title {
       margin-top: 1.5rem;
@@ -210,18 +210,17 @@ export const Title = styled.a`
   font-size: 2.5rem;
   color: ${props => props.theme.colors.secundary};
   margin-bottom: 1rem;
+  width: fit-content;
+
+  > div {
+    margin-top: 0.3rem;
+    border-radius: 5px;
+    height: 5px;
+    width: 50%;
+    background-color: ${props => props.theme.colors.secundary};
+  }
 
   @media (max-width: 950px) {
     font-size: 2rem;
-  }
-`
-
-export const Subtitle = styled.h2`
-  font-weight: bold;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-
-  @media (max-width: 950px) {
-    font-size: 1.2rem;
   }
 `

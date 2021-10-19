@@ -25,7 +25,6 @@ export const ContributorWrapper = styled.div`
 
 
   @media (max-width: 950px) {
-    margin: 1.5rem 0 0;
 
     a {
         img {
@@ -35,4 +34,7 @@ export const ContributorWrapper = styled.div`
       }
     }
 
+  @media (max-width: 600px) {
+    margin: 1.5rem 0;
+  }
 `

@@ -1,4 +1,4 @@
-import { Wrapper, Modal, Title, Subtitle } from "./styles"
+import { Wrapper, Modal, Title } from "./styles"
 
 import { AiOutlineClose, AiOutlineLink } from 'react-icons/ai';
 
@@ -6,6 +6,7 @@ import { formatProjectName } from '../../utils/format'
 
 import ProjectPie from "../Graphs/ProjectPie"
 import Contributors from "../Contributors";
+import { Subtitle } from "../design/Subtitle";
 
 type Language = {
   id: string,
@@ -42,11 +43,11 @@ export function ProjectModal({ project, isModalOpen, closeModal }: ProjectModalP
   }
 
   return (
-    <Wrapper className={isModalOpen ? "in" : "out" }>
+    <Wrapper className={isModalOpen ? "modal-open" : "modal-close" }>
       <div className="modal-background" onClick={closeModal}>
         <Modal className="modal" onClick={handleModalClick}>
           <div className="title">
-            <Title href={link} target="_blank">{ formatProjectName(name) } <AiOutlineLink size="1.5rem" /></Title>
+            <Title href={link} target="_blank">{ formatProjectName(name) } <AiOutlineLink size="1.5rem" /> <div /></Title>
             <p>{ description }</p>
           </div>
           <div className="info">
