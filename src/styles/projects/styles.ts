@@ -20,7 +20,7 @@ export const Content = styled.section`
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 2rem 4rem;
+    grid-gap: 1rem 3rem;
 
     @media (max-width: 900px){
         grid-template-columns: repeat(2, 1fr);

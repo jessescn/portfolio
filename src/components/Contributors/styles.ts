@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 export const ContributorWrapper = styled.div`
   div {
-    padding: 0.5rem 0;
     max-height: 300px;
     overflow-y: auto;
   }
 
   a {
+    padding-right: 0.375rem;
     img {
       margin-top: 1rem;
       width: 45px;

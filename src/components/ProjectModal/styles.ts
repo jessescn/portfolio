@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 11;
   
   &.out {
     display: none;
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
     right: 0;
     width: 100%;
     height: 100%;
-    z-index: 3;
+    z-index: 12;
     
     background: rgba(0,0,0,0.6);
   }
@@ -102,37 +102,28 @@ export const Wrapper = styled.div`
   &.in {
     transform:scale(1);
     .modal-background {
-      animation: fadeIn .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+      animation: fadeIn .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
       .modal {
         background-color:transparent;
-        animation: modalFadeIn .1s .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        .title, h2, .technologies, .info {
+        animation: modalFadeIn .1s .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        .title, h2, .technologies, .info, .overview  {
           opacity:0;
           position:relative;
-          animation: modalContentFadeIn .3s 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+          animation: modalContentFadeIn .2s .1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
         }
-      }
-
-      .overview {
-        opacity: 0;
-        animation: modalContentFadeIn .3s .6s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
       }
     }
   }
 
   &.out {
-    animation: quickScaleDown 0s .3s linear forwards;
+    animation: quickScaleDown 0s .2s linear forwards;
     .modal-background {
-      animation: fadeOut .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+      animation: fadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
       .modal {
-        animation: modalFadeOut .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        .title, h2, .technologies, .info {
-          animation: modalContentFadeOut .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        animation: modalFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        .title, h2, .technologies, .info,  .overview {
+          animation: modalContentFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
         }
-      }
-
-      .overview {
-        animation: modalContentFadeOut .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
       }
     }
   }
@@ -146,7 +137,7 @@ export const Modal = styled.div`
   max-height: 85vh;
   width: 60vw;
   width: 850px;
-  z-index: 4;
+  z-index: 13;
   overflow-y: auto;
   
   padding: 2.5rem;
@@ -202,6 +193,14 @@ export const Modal = styled.div`
     top: 1rem;
     right: 1rem;
     cursor: pointer;
+  }
+
+  @media (max-width: 600px) {
+    width: 95vw;
+
+    .title {
+      margin-top: 1.5rem;
+    }
   }
 `
 

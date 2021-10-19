@@ -85,7 +85,7 @@ export const Content = styled.div`
          position: absolute;
          right: 20px;
          top: 30px;
-         z-index: 100;
+         z-index: 10;
       }
 
       nav {
@@ -94,7 +94,7 @@ export const Content = styled.div`
          flex-direction: column;
          justify-content: center;
          align-items: center;
-         z-index: 10;
+         z-index: 9;
          position: absolute;
          right: 0;
          left: 0;
