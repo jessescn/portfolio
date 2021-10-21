@@ -30,6 +30,7 @@ const ProjectPie = ({ data }: ProjectPieProps) => {
         padAngle={0.7}
         colors={{ scheme: 'category10' }}
         cornerRadius={3}
+        animate={false}
         activeOuterRadiusOffset={8}
         borderWidth={1}
         borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}

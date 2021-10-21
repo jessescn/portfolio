@@ -1,3 +1,5 @@
+import { formatDate } from "../utils/format"
+
 const API_URL = "https://api.github.com"
 
 type Repo = {
@@ -16,15 +18,16 @@ type Contributor = {
   link: string
 }
 
-export const getGithubRepos = async (repos: Repo[], token: string) => {
+export const getGithubRepos = async (repos: Repo[]) => {
   let projects = [];
 
   for(let elm of repos){
-    const data = await getProjectsByUser(elm, token);
+    const data = await getProjectsByUser(elm);
 
     const userProjects = await Promise.all(data.map(async repo => {
-      const languages = await getProjectLanguages(repo.full_name, token);
-      const contributors = await getProjectContributors(repo.full_name, token);
+      const languages = await getProjectLanguages(repo.full_name)
+      const contributors = await getProjectContributors(repo.full_name)
+      const commits = await getProjectCommits(repo.full_name)
 
       return {
         id: repo.id,
@@ -33,6 +36,7 @@ export const getGithubRepos = async (repos: Repo[], token: string) => {
         link: repo.html_url,
         contributors,
         languages,
+        commits,
       }
     }))
 
@@ -43,11 +47,12 @@ export const getGithubRepos = async (repos: Repo[], token: string) => {
 }
 
 
-const getProjectsByUser = async (repo: Repo, token) => {
+const getProjectsByUser = async (repo: Repo) => {
+  
   try {
     const response = await fetch(`${API_URL}/users/${repo.user}/repos?per_page=100`, {
       headers: {
-          Authorization: `token ${token}`
+          Authorization: `token ${process.env.GITHUB_TOKEN}`
       }
     })
 
@@ -61,11 +66,11 @@ const getProjectsByUser = async (repo: Repo, token) => {
   }
 }
 
-const getProjectLanguages = async (repoName: string, token: string): Promise< Language[]> => {
+const getProjectLanguages = async (repoFullName: string): Promise< Language[]> => {
   try {
-    const response = await fetch(`${API_URL}/repos/${repoName}/languages`, {
+    const response = await fetch(`${API_URL}/repos/${repoFullName}/languages`, {
       headers: {
-          Authorization: `token ${token}`
+        Authorization: `token ${process.env.GITHUB_TOKEN}`
       }
     })
   
@@ -78,11 +83,11 @@ const getProjectLanguages = async (repoName: string, token: string): Promise< La
   }
 }
 
-const getProjectContributors = async (repoName: string, token: string): Promise<Contributor[]> => {
+const getProjectContributors = async (repoFullName: string): Promise<Contributor[]> => {
   try {
-    const response = await fetch(`${API_URL}/repos/${repoName}/contributors`, {
+    const response = await fetch(`${API_URL}/repos/${repoFullName}/contributors`, {
       headers: {
-          Authorization: `token ${token}`
+        Authorization: `token ${process.env.GITHUB_TOKEN}`
       }
     })
 
@@ -101,4 +106,27 @@ const getProjectContributors = async (repoName: string, token: string): Promise<
     console.log("Request projects contributors failure");
     return []
   }
-} 
+}
+
+export const getProjectCommits =  async (repoFullName: string) => {
+  try {
+    const response = await fetch(`${API_URL}/repos/${repoFullName}/commits`, {
+      headers: {
+        Authorization: `token ${process.env.GITHUB_TOKEN}`
+      }
+    })
+
+    const data = await response.json()
+    
+    const commits = data.map(commit => {
+      return {
+        date: formatDate(commit.commit.author.date)
+      }
+    })
+
+    return commits
+  } catch (error) {
+    console.log("Request project commits failure");
+    return []
+  }
+}

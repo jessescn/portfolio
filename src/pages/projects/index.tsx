@@ -17,7 +17,11 @@ type Contributor = {
     username: string,
     avatar: string,
     link: string,
-  }
+}
+
+type Commit = {
+    date: string;
+}
 
 type Project =  {
     id: number,
@@ -25,7 +29,8 @@ type Project =  {
     name: string,
     link: string,
     contributors: Contributor[],
-    languages: Language[]
+    languages: Language[],
+    commits: Commit[]
 }
 
 interface ProjectsProps {
@@ -35,7 +40,7 @@ interface ProjectsProps {
 
 export default function Projects({ projects, setShowMenu }: ProjectsProps){
 
-    const [modalProject, setModalProject] =  useState({ id: 0, description: "", name: "", link: "", languages: [], contributors: [] });
+    const [modalProject, setModalProject] =  useState({ id: 0, description: "", name: "", link: "", languages: [], contributors: [], commits: [] });
     const [isModalOpen, setIsModalOpen] = useState(false);
  
     useEffect(()=> {
@@ -93,7 +98,7 @@ export const getStaticProps: GetStaticProps = async() => {
           }
         ]
 
-        projects = await getGithubRepos(requestRepos, process.env.GITHUB_TOKEN);
+        projects = await getGithubRepos(requestRepos);
     } catch(e){
         console.log("Github API failure")
     }
@@ -104,5 +109,4 @@ export const getStaticProps: GetStaticProps = async() => {
         },
         revalidate: 60 * 60
     }
-    
 }

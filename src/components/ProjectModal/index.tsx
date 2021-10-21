@@ -7,6 +7,8 @@ import { formatProjectName } from '../../utils/format'
 import ProjectPie from "../Graphs/ProjectPie"
 import Contributors from "../Contributors";
 import { Subtitle } from "../design/Subtitle";
+import Calendar from "../Graphs/ProjectCalendar";
+import ProjectCalendar from "../Graphs/ProjectCalendar";
 
 type Language = {
   id: string,
@@ -19,13 +21,18 @@ type Contributor = {
   link: string,
 }
 
+type Commit = {
+  date: string;
+}
+
 type Project = {
   id: number,
   description: string,
   name: string,
   link: string,
   contributors: Contributor[],
-  languages: Language[]
+  languages: Language[],
+  commits: Commit[],
 }
 
 interface ProjectModalProps {
@@ -36,7 +43,7 @@ interface ProjectModalProps {
 
 export function ProjectModal({ project, isModalOpen, closeModal }: ProjectModalProps) {
 
-  const { name, description, link, languages, contributors } = project;
+  const { name, description, link, languages, contributors, commits } = project;
 
   const handleModalClick = (e) => {
     e.stopPropagation()
@@ -68,9 +75,9 @@ export function ProjectModal({ project, isModalOpen, closeModal }: ProjectModalP
           {
             languages.length > 0 && (
                 <>
-                  <Subtitle>Metrics</Subtitle>
+                  <Subtitle>Commits</Subtitle>
                   <div className="overview">
-                    <ProjectPie data={languages} />
+                    <ProjectCalendar commits={commits}/>
                   </div>
                 </>
               )

@@ -6,3 +6,12 @@ export const formatProjectName = (projectName: string) => {
 
   return formatted;
 }
+
+export const formatDate = (date: string) => {
+  const dt = new Date(date)
+  const year = dt.getFullYear()
+  const day = dt.getDate()
+  const month = dt.getMonth()
+
+  return `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`
+}

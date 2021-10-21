@@ -60,5 +60,75 @@ export default createGlobalStyle<GlobalProps>`
             top: 0;
             opacity: 1;
         }
+  }
+
+  @keyframes backgroundFadeIn {
+    0% {
+      background:rgba(0,0,0,.0);
     }
+    100% {
+      background:rgba(0,0,0,.6);
+    }
+  }
+
+  @keyframes backgroundFadeOut {
+    0% {
+      background:rgba(0,0,0, .6);
+    }
+    100% {
+      background:rgba(0,0,0,.0);
+    }
+  }
+
+  @keyframes quickScaleDown {
+    0% {
+      transform:scale(1);
+    }
+    99.9% {
+      transform:scale(1);
+    }
+    100% {
+      transform:scale(0);
+    }
+  }
+
+  @keyframes modalFadeIn {
+    0% {
+      background-color:transparent;
+    }
+    100% {
+      background-color: ${props => props.theme.colors.background};
+    }
+  }
+
+  @keyframes modalFadeOut {
+    0% {
+      background-color: ${props => props.theme.colors.background};
+    }
+    100% {
+      background-color:transparent;
+    }
+  }
+
+  @keyframes modalContentFadeIn {
+    0% {
+      opacity:0;
+      top:-20px;
+    }
+    100% {
+      opacity:1;
+      top:0;
+    }
+  }
+
+  @keyframes modalContentFadeOut {
+    0% {
+      opacity:1;
+      top:0px;
+    }
+    100% {
+      opacity:0;
+      top:-20px;
+    }
+  }
 `

@@ -16,5 +16,4 @@ export function Subtitle({ children, fontSize=1.4 }: TitleProps){
       <div></div>
     </Container>
   )
-
 }
