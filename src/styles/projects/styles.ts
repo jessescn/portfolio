@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
-  height: calc(100vh - 13rem);
+  min-height: calc(100vh - 13rem);
+  height: fit-content;
   max-width: 1120px;
   padding: 4rem 2rem;
   margin: 0 auto;
@@ -9,11 +10,6 @@ export const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @media (max-width: 900px){
-    min-height: calc(100vh - 13rem);
-    height: fit-content;
-  }
 `
 
 export const Content = styled.section`
