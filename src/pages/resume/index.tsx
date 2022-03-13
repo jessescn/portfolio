@@ -3,9 +3,10 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { PageContainer } from "../../components/design/PageContainer";
 import { Title } from "../../components/design/Title";
-import { getjobs, Job } from "../../services/prismic";
+import { getjobs } from "../../services/prismic";
 import { Experiences } from "../../styles/resume/styles";
 import ResumeItem from "../../components/Resume/Item";
+import { Job } from "../../models/Job";
 
 interface ResumeProps {
   jobs: Job[];

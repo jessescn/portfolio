@@ -15,7 +15,7 @@ export const getGithubRepos = async (accounts: Account[]) => {
     for (let acc of accounts) {
       const data = await getProjectsByUser(acc);
 
-      const userProjects = await Promise.all(
+      const userProjects: Project[] = await Promise.all(
         data.map(async (repo) => {
           const languages = await getProjectLanguages(repo.full_name);
           const contributors = await getProjectContributors(repo.full_name);
