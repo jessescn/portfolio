@@ -1,17 +1,7 @@
-import { render, screen } from '@testing-library/react'
-import { DefaultTheme, ThemeProvider } from 'styled-components'
-import Projects, { getStaticProps } from '../../pages/projects'
-
-import dark from '../../styles/themes/dark'
-import fetch from 'jest-fetch-mock'
-
-type Project =  {
-  id: number,
-  description: string,
-  name: string,
-  link: string,
-  languages: string[]
-}
+import fetch from "jest-fetch-mock";
+import { render, screen } from "../../jest";
+import { Project } from "../../models/Project";
+import Projects, { getStaticProps } from "../../pages/projects";
 
 const fakeProjects: Project[] = [
   {
@@ -19,91 +9,40 @@ const fakeProjects: Project[] = [
     description: "testing fake project",
     name: "Jest React Guide",
     link: "fake-link",
-    languages: ["javascript", "node", "python"]
-  }
-]
+    contributors: [],
+    commits: [],
+    languages: [
+      { id: "javascript", value: 100 },
+      { id: "node", value: 100 },
+      { id: "python", value: 100 },
+    ],
+  },
+];
 
 beforeEach(() => {
-  fetch.resetMocks()
-})
+  fetch.resetMocks();
+});
 
-interface RenderProps {
-  theme?: DefaultTheme,
-  setShowMenu?: () => void,
-  projects?: Project[] 
-}
-
-const renderPage = ({theme=dark, setShowMenu=jest.fn(), projects=fakeProjects}: RenderProps) => {
-  render(
-    <ThemeProvider theme={theme}>
-      <Projects projects={projects} setShowMenu={setShowMenu}/>
-    </ThemeProvider>
-  )
-}
+const renderPage = (projects = fakeProjects) => {
+  render(<Projects projects={projects} setShowMenu={jest.fn()} />);
+};
 
 describe("Projects Page", () => {
   it("should render correctly", () => {
+    renderPage();
 
-    renderPage({})
-
-    expect(screen.getByText("What i've been doing")).toBeInTheDocument()
-  })
+    expect(screen.getByText("What i've been doing")).toBeInTheDocument();
+  });
 
   it("should render project card", () => {
+    renderPage();
 
-    renderPage({})
-
-    expect(screen.getByText("Jest React Guide")).toBeInTheDocument()
-  })
+    expect(screen.getByText("Jest React Guide")).toBeInTheDocument();
+  });
 
   it("should render error message when github fetch fails", () => {
+    renderPage([]);
 
-    renderPage({ projects: []})
-
-    expect(screen.getByText("No projects found")).toBeInTheDocument()
-  })
-
-  it("should loads initial data", async () => {
-
-    fetch.mockResponseOnce(JSON.stringify([{
-      id: 1,
-      description: "testing fake project",
-      name: "sos-money",
-      html_url: "fake-link",
-      language: ["javascript", "node", "python"]
-     }]))
-
-    const response = await getStaticProps({})
-
-    expect(fetch).toHaveBeenCalledTimes(1)
-    expect(response).toEqual(
-      expect.objectContaining({
-        props: {
-          projects: [{
-            id: 1,
-            description: "testing fake project",
-            name: "sos-money",
-            link: "fake-link",
-            languages: ["javascript", "node", "python"]
-          }]
-        }
-      })
-    )
-  })
-
-  it("returns empty array if fetch fails", async () => {
-
-    fetch.mockReject(new Error("Github API failure"))
-
-    const response = await getStaticProps({})
-
-    expect(fetch).toHaveBeenCalledTimes(1)
-    expect(response).toEqual(
-      expect.objectContaining({
-        props: {
-          projects: []
-        }
-      })
-    )
-  })
-})
+    expect(screen.getByText("No projects found")).toBeInTheDocument();
+  });
+});

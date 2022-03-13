@@ -1,132 +1,137 @@
-import { formatDate } from "../utils/format"
+import { Contributor, Language, Project } from "../models/Project";
+import { formatDate } from "../utils/format";
 
-const API_URL = "https://api.github.com"
+const API_URL = "https://api.github.com";
 
-type Repo = {
+type Account = {
   user: string;
   repos: string[];
-}
+};
 
-type Language = {
-  id: string;
-  value: number;
-}
+export const getGithubRepos = async (accounts: Account[]) => {
+  let projects: Project[] = [];
 
-type Contributor = {
-  username: string,
-  avatar: string,
-  link: string
-}
-
-export const getGithubRepos = async (repos: Repo[]) => {
-  let projects = [];
-
-  for(let elm of repos){
-    const data = await getProjectsByUser(elm);
-
-    const userProjects = await Promise.all(data.map(async repo => {
-      const languages = await getProjectLanguages(repo.full_name)
-      const contributors = await getProjectContributors(repo.full_name)
-      const commits = await getProjectCommits(repo.full_name)
-
-      return {
-        id: repo.id,
-        description: repo.description,
-        name: repo.name,
-        link: repo.html_url,
-        contributors,
-        languages,
-        commits,
-      }
-    }))
-
-    projects = [...projects, ...userProjects]
-  }
-
-  return projects
-}
-
-
-const getProjectsByUser = async (repo: Repo) => {
-  
   try {
-    const response = await fetch(`${API_URL}/users/${repo.user}/repos?per_page=100`, {
-      headers: {
-          Authorization: `token ${process.env.GITHUB_TOKEN}`
-      }
-    })
+    for (let acc of accounts) {
+      const data = await getProjectsByUser(acc);
 
-    const data = await response.json()
+      const userProjects = await Promise.all(
+        data.map(async (repo) => {
+          const languages = await getProjectLanguages(repo.full_name);
+          const contributors = await getProjectContributors(repo.full_name);
+          const commits = await getProjectCommits(repo.full_name);
 
-    return data.filter(project => repo.repos.includes(project.name))
+          return {
+            id: repo.id,
+            description: repo.description,
+            name: repo.name,
+            link: repo.html_url,
+            contributors,
+            languages,
+            commits,
+          };
+        })
+      );
 
-  } catch(error) {
-    console.log("Request project by user failure");
-    return []
+      projects = [...projects, ...userProjects];
+    }
+  } catch (error) {
+    console.log("Github API failure");
   }
-}
 
-const getProjectLanguages = async (repoFullName: string): Promise< Language[]> => {
+  return projects;
+};
+
+const getProjectsByUser = async (acc: Account) => {
+  try {
+    const response = await fetch(
+      `${API_URL}/users/${acc.user}/repos?per_page=100`,
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    return data.filter((project) => acc.repos.includes(project.name));
+  } catch (error) {
+    console.log("Request project by user failure");
+    return [];
+  }
+};
+
+const getProjectLanguages = async (
+  repoFullName: string
+): Promise<Language[]> => {
   try {
     const response = await fetch(`${API_URL}/repos/${repoFullName}/languages`, {
       headers: {
-        Authorization: `token ${process.env.GITHUB_TOKEN}`
-      }
-    })
-  
-    const data = await response.json()
-  
-    return Object.keys(data).map((key) => { return { id: key, value: data[key] }})
+        Authorization: `token ${process.env.GITHUB_TOKEN}`,
+      },
+    });
+
+    const data = await response.json();
+
+    return Object.keys(data).map((key) => {
+      return { id: key, value: data[key] };
+    });
   } catch (error) {
     console.log("Request project language failure");
-    return []
+    return [];
   }
-}
+};
 
-const getProjectContributors = async (repoFullName: string): Promise<Contributor[]> => {
+const getProjectContributors = async (
+  repoFullName: string
+): Promise<Contributor[]> => {
   try {
-    const response = await fetch(`${API_URL}/repos/${repoFullName}/contributors`, {
-      headers: {
-        Authorization: `token ${process.env.GITHUB_TOKEN}`
+    const response = await fetch(
+      `${API_URL}/repos/${repoFullName}/contributors`,
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        },
       }
-    })
+    );
 
-    const data = await response.json()
+    const data = await response.json();
 
-    const contributors = data.map(elm => {            
-        return {
-            username: elm.login,
-            avatar: elm.avatar_url,
-            link: elm.url
-        }
-    })
+    const contributors = data.map((elm) => {
+      return {
+        username: elm.login,
+        avatar: elm.avatar_url,
+        link: elm.url,
+      };
+    });
 
-    return contributors
+    return contributors;
   } catch (error) {
     console.log("Request projects contributors failure");
-    return []
+    return [];
   }
-}
+};
 
-export const getProjectCommits =  async (repoFullName: string) => {
+export const getProjectCommits = async (repoFullName: string) => {
   try {
     const response = await fetch(`${API_URL}/repos/${repoFullName}/commits`, {
       headers: {
-        Authorization: `token ${process.env.GITHUB_TOKEN}`
-      }
-    })
+        Authorization: `token ${process.env.GITHUB_TOKEN}`,
+      },
+    });
 
-    const data = await response.json()
-    
-    const commits = data.map(commit => {
+    const data = await response.json();
+
+    const commits = data.map((commit) => {
       return {
-        date: formatDate(commit.commit.author.date)
-      }
-    })
+        date: formatDate(commit.commit.author.date),
+      };
+    });
 
-    return commits
+    return commits;
   } catch (error) {
     console.log("Request project commits failure");
-    return []
+    return [];
   }
-}
+};

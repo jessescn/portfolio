@@ -1,16 +1,10 @@
-import { screen, render } from '@testing-library/react'
-import { Footer } from '.'
-
-import lightTheme from '../../styles/themes/light'
-import { ThemeProvider } from 'styled-components'
+import { Footer } from ".";
+import { render, screen } from "../../jest";
 
 describe("Footer component", () => {
   it("should renders correctly", () => {
-    
-    render(<ThemeProvider theme={lightTheme}>
-      <Footer/>
-    </ThemeProvider>)
+    render(<Footer />);
 
-    expect(screen.getByText("Find me on")).toBeInTheDocument()
-  })  
-})
+    expect(screen.getByText("Find me on")).toBeInTheDocument();
+  });
+});

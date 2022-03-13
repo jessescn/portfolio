@@ -1,17 +1,10 @@
-import { render, screen } from '@testing-library/react'
-import { ThemeProvider } from 'styled-components'
-import dark from '../../styles/themes/dark'
-import Home from '../../pages/index'
+import Home from "../../pages/index";
+import { render, screen } from "../../jest";
 
 describe("Home Page", () => {
   it("should render correctly", () => {
+    render(<Home setShowMenu={jest.fn()} />);
 
-    render(
-      <ThemeProvider theme={dark}>
-        <Home setShowMenu={jest.fn()} />
-      </ThemeProvider>
-    )
-
-    expect(screen.getByText("Hi There!")).toBeInTheDocument()
-  })
-})
+    expect(screen.getByText("Hi There!")).toBeInTheDocument();
+  });
+});

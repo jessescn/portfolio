@@ -1,90 +1,67 @@
-import { Wrapper, Modal, Title } from "./styles"
-
-import { AiOutlineClose, AiOutlineLink } from 'react-icons/ai';
-
-import { formatProjectName } from '../../utils/format'
-
-import ProjectPie from "../Graphs/ProjectPie"
+import { AiOutlineClose, AiOutlineLink } from "react-icons/ai";
+import { Project } from "../../models/Project";
+import { formatProjectName } from "../../utils/format";
 import Contributors from "../Contributors";
 import { Subtitle } from "../design/Subtitle";
-import Calendar from "../Graphs/ProjectCalendar";
 import ProjectCalendar from "../Graphs/ProjectCalendar";
-
-type Language = {
-  id: string,
-  value: number
-}
-
-type Contributor = {
-  username: string,
-  avatar: string,
-  link: string,
-}
-
-type Commit = {
-  date: string;
-}
-
-type Project = {
-  id: number,
-  description: string,
-  name: string,
-  link: string,
-  contributors: Contributor[],
-  languages: Language[],
-  commits: Commit[],
-}
+import { Modal, Title, Wrapper } from "./styles";
 
 interface ProjectModalProps {
-  project: Project,
-  isModalOpen: boolean,
-  closeModal: () => void
+  project: Project;
+  isModalOpen: boolean;
+  closeModal: () => void;
 }
 
-export function ProjectModal({ project, isModalOpen, closeModal }: ProjectModalProps) {
+export function ProjectModal({
+  project,
+  isModalOpen,
+  closeModal,
+}: ProjectModalProps) {
+  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
 
-  const { name, description, link, languages, contributors, commits } = project;
-
-  const handleModalClick = (e) => {
-    e.stopPropagation()
-  }
-
-  return (
-    <Wrapper className={isModalOpen ? "modal-open" : "modal-close" }>
+  return !project.id ? null : (
+    <Wrapper className={isModalOpen ? "modal-open" : "modal-close"}>
       <div className="modal-background" onClick={closeModal}>
         <Modal className="modal" onClick={handleModalClick}>
           <div className="title">
-            <Title href={link} target="_blank">{ formatProjectName(name) } <AiOutlineLink size="1.5rem" /> <div /></Title>
-            <p>{ description }</p>
+            <Title href={project.link} target="_blank">
+              {formatProjectName(project.name)} <AiOutlineLink size="1.5rem" />{" "}
+              <div />
+            </Title>
+            <p>{project.description}</p>
           </div>
           <div className="info">
-            { 
-            languages.length > 0 && (
+            {project.languages.length > 0 && (
+              <div className="technologies">
+                <Subtitle>Technologies</Subtitle>
                 <div className="technologies">
-                  <Subtitle>Technologies</Subtitle>
-                  <div className="technologies">
-                      { languages.map((language, idx) => (
-                        <span key={language.id}>{`${language.id} ${idx !== languages.length - 1 ? ',' : ''} `}</span>
-                      ))}
-                  </div>
+                  {project.languages.map((language, idx) => (
+                    <span key={language.id}>{`${language.id} ${
+                      idx !== project.languages.length - 1 ? "," : ""
+                    } `}</span>
+                  ))}
                 </div>
-              )
-            }
-            <Contributors contributors={contributors} />
+              </div>
+            )}
+            <Contributors contributors={project.contributors} />
           </div>
-          {
-            languages.length > 0 && (
-                <>
-                  <Subtitle>Commits</Subtitle>
-                  <div className="overview">
-                    <ProjectCalendar commits={commits}/>
-                  </div>
-                </>
-              )
-            }
-          <AiOutlineClose size="1.5rem" className="closeButton" onClick={closeModal} />
+          {project.languages.length > 0 && (
+            <>
+              <Subtitle>Commits</Subtitle>
+              <div className="overview">
+                <ProjectCalendar commits={project.commits} />
+              </div>
+            </>
+          )}
+          <AiOutlineClose
+            size="1.5rem"
+            className="closeButton"
+            onClick={closeModal}
+          />
         </Modal>
       </div>
     </Wrapper>
-  )
+  );
 }
