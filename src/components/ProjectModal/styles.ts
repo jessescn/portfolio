@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 11;
-  
+
   &.modal-close {
     display: none;
   }
@@ -25,61 +25,91 @@ export const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     z-index: 12;
-    
-    background: rgba(0,0,0,0.6);
+
+    background: rgba(0, 0, 0, 0.6);
   }
 
   &.modal-open {
-    transform:scale(1);
+    transform: scale(1);
     .modal-background {
-      animation: backgroundFadeIn .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-      -moz-animation: backgroundFadeIn .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-      -o-animation: backgroundFadeIn .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-      -webkit-animation: backgroundFadeIn .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+      animation: backgroundFadeIn 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+        forwards;
+      -moz-animation: backgroundFadeIn 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+        forwards;
+      -o-animation: backgroundFadeIn 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+        forwards;
+      -webkit-animation: backgroundFadeIn 0.2s
+        cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       .modal {
-        background-color:transparent;
-        animation: modalFadeIn .1s .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        -moz-animation: modalFadeIn .1s .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        -o-animation: modalFadeIn .1s .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        -webkit-animation: modalFadeIn .1s .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        .title, h2, .technologies, .info, .overview  {
-          opacity:0;
-          position:relative;
-          animation: modalContentFadeIn .2s .1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-          -moz-animation: modalContentFadeIn .2s .1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-          -o-animation: modalContentFadeIn .2s .1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-          -webkit-animation: modalContentFadeIn .2s .1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        background-color: transparent;
+        animation: modalFadeIn 0.1s 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+          forwards;
+        -moz-animation: modalFadeIn 0.1s 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+          forwards;
+        -o-animation: modalFadeIn 0.1s 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+          forwards;
+        -webkit-animation: modalFadeIn 0.1s 0.2s
+          cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        .title,
+        h2,
+        .technologies,
+        .info,
+        .overview {
+          opacity: 0;
+          position: relative;
+          animation: modalContentFadeIn 0.2s 0.1s
+            cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          -moz-animation: modalContentFadeIn 0.2s 0.1s
+            cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          -o-animation: modalContentFadeIn 0.2s 0.1s
+            cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          -webkit-animation: modalContentFadeIn 0.2s 0.1s
+            cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
       }
     }
   }
 
   &.modal-close {
-    animation: quickScaleDown 0s .2s linear forwards;
-    -moz-animation: quickScaleDown 0s .2s linear forwards;
-    -o-animation: quickScaleDown 0s .2s linear forwards;
-    -webkit-animation: quickScaleDown 0s .2s linear forwards;
+    animation: quickScaleDown 0s 0.2s linear forwards;
+    -moz-animation: quickScaleDown 0s 0.2s linear forwards;
+    -o-animation: quickScaleDown 0s 0.2s linear forwards;
+    -webkit-animation: quickScaleDown 0s 0.2s linear forwards;
     .modal-background {
-      animation: backgroundFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-      -moz-animation: backgroundFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-      -o-animation: backgroundFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-      -webkit-animation: backgroundFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+      animation: backgroundFadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+        forwards;
+      -moz-animation: backgroundFadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+        forwards;
+      -o-animation: backgroundFadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+        forwards;
+      -webkit-animation: backgroundFadeOut 0.2s
+        cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       .modal {
-        animation: modalFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        -moz-animation: modalFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        -o-animation: modalFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        -webkit-animation: modalFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        .title, h2, .technologies, .info,  .overview {
-          animation: modalContentFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-          -moz-animation: modalContentFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-          -o-animation: modalContentFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-          -webkit-animation: modalContentFadeOut .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        animation: modalFadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        -moz-animation: modalFadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+          forwards;
+        -o-animation: modalFadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+          forwards;
+        -webkit-animation: modalFadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+          forwards;
+        .title,
+        h2,
+        .technologies,
+        .info,
+        .overview {
+          animation: modalContentFadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+            forwards;
+          -moz-animation: modalContentFadeOut 0.2s
+            cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          -o-animation: modalContentFadeOut 0.2s
+            cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          -webkit-animation: modalContentFadeOut 0.2s
+            cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
       }
     }
   }
 `
-
 
 export const Modal = styled.div`
   position: relative;
@@ -90,7 +120,7 @@ export const Modal = styled.div`
   max-width: 700px;
   z-index: 13;
   overflow-y: auto;
-  
+
   padding: 2.5rem;
   border: 3px solid ${props => props.theme.colors.text};
 
@@ -109,14 +139,13 @@ export const Modal = styled.div`
     width: 100%;
     margin-top: 2rem;
   }
-    
+
   .closeButton {
     position: absolute;
     top: 1rem;
     right: 1rem;
     cursor: pointer;
   }
-
 
   @media (max-width: 950px) {
     width: 80vw;

@@ -1,13 +1,15 @@
-import { ThemeProvider } from "styled-components";
-import lightTheme from "../styles/themes/light";
+/* eslint-disable no-undef */
+/* eslint-disable import/export */
+import { ThemeProvider } from 'styled-components'
+import lightTheme from '../styles/themes/light'
 
-import { render as jestRender } from "@testing-library/react";
+import { render as jestRender } from '@testing-library/react'
 
-import userEvent from "@testing-library/user-event";
+import userEvent from '@testing-library/user-event'
 
 type Options = {
-  theme?: typeof lightTheme;
-};
+  theme?: typeof lightTheme
+}
 
 export const customRender = (
   component: JSX.Element,
@@ -17,8 +19,8 @@ export const customRender = (
     <ThemeProvider theme={options.theme || lightTheme}>
       {component}
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export * from "@testing-library/react";
-export { customRender as render, userEvent };
+export * from '@testing-library/react'
+export { customRender as render, userEvent }

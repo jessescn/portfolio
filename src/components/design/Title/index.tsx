@@ -1,20 +1,16 @@
-import { ReactNode } from "react";
-import { Container, TitleContent } from "./styles";
+import { ReactNode } from 'react'
+import { Container, TitleContent } from './styles'
 
 interface TitleProps {
-    children: ReactNode;
-    fontSize: number;
+  children: ReactNode
+  fontSize: number
 }
 
-export function Title({ children, fontSize }: TitleProps){
-
-  return(
+export function Title({ children, fontSize }: TitleProps) {
+  return (
     <Container>
-      <TitleContent fontSize={fontSize}>
-        {children}
-      </TitleContent>
+      <TitleContent fontSize={fontSize}>{children}</TitleContent>
       <div></div>
     </Container>
   )
-
 }

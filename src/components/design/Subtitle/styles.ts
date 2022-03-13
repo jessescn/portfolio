@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 type ContentProps = {
-  fontSize: number;
+  fontSize: number
 }
 
 export const Container = styled.div`

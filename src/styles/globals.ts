@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
-interface GlobalProps{
-  showMenu: boolean;
+interface GlobalProps {
+  showMenu: boolean
 }
 
 export default createGlobalStyle<GlobalProps>`
@@ -20,7 +20,7 @@ export default createGlobalStyle<GlobalProps>`
     color: ${props => props.theme.colors.text};
     height: 100%;
 
-    overflow-y: ${props => props.showMenu ? "hidden" : "inherit"};
+    overflow-y: ${props => (props.showMenu ? 'hidden' : 'inherit')};
   }
 
   @media (max-width: 1080px){

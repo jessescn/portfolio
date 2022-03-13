@@ -1,56 +1,49 @@
-import { useRouter } from "next/router";
-import { ActiveLink } from ".";
-import { mocked } from "ts-jest/utils";
-import { render, screen } from "../../jest";
+import * as router from 'next/router'
+import { ActiveLink } from '.'
+import { render, screen } from '../../jest'
 
-jest.mock("next/router");
+const useRouterMocked = jest.spyOn(router, 'useRouter')
 
-describe("ActiveLink component", () => {
-  it("should renders correctly", () => {
-    const useRouterMocked = mocked(useRouter);
-
+describe('ActiveLink component', () => {
+  it('should renders correctly', () => {
     useRouterMocked.mockReturnValueOnce({
-      asPath: "/",
-    } as any);
+      asPath: '/'
+    } as any)
 
     render(
       <ActiveLink activeClassName="active" href="/">
         <a>Home</a>
       </ActiveLink>
-    );
+    )
 
-    expect(screen.getByText("Home")).toBeInTheDocument();
-  });
+    expect(screen.getByText('Home')).toBeInTheDocument()
+  })
 
-  it("should have active class when asPath equals to href", () => {
-    const useRouterMocked = mocked(useRouter);
-
+  it('should have active class when asPath equals to href', () => {
     useRouterMocked.mockReturnValueOnce({
-      asPath: "/",
-    } as any);
+      asPath: '/'
+    } as any)
 
     render(
       <ActiveLink activeClassName="active" href="/">
         <a>Home</a>
       </ActiveLink>
-    );
+    )
 
-    expect(screen.getByText("Home")).toHaveClass("active");
-  });
+    expect(screen.getByText('Home')).toHaveClass('active')
+  })
 
-  it("should not have active class when asPath different to href", () => {
-    const useRouterMocked = mocked(useRouter);
-
+  it('should not have active class when asPath different to href', () => {
     useRouterMocked.mockReturnValueOnce({
-      asPath: "/fakePath",
-    } as any);
+      asPath: '/fakePath'
+    } as any)
 
     render(
       <ActiveLink activeClassName="active" href="/">
         <a>Home</a>
       </ActiveLink>
-    );
+    )
 
-    expect(screen.getByText("Home")).not.toHaveClass("active");
-  });
-});
+    expect(screen.getByText('Home')).not.toHaveClass('active')
+  })
+})

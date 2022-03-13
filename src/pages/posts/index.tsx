@@ -1,27 +1,27 @@
-import { GetStaticProps } from "next";
-import Link from "next/link";
+import { GetStaticProps } from 'next'
+import Link from 'next/link'
 
-import { Content } from "../../styles/posts/styles";
-import { Title } from "../../components/design/Title";
-import { PageContainer } from "../../components/design/PageContainer";
+import { Content } from '../../styles/posts/styles'
+import { Title } from '../../components/design/Title'
+import { PageContainer } from '../../components/design/PageContainer'
 
-import { getPrismicClient } from "../../services/prismic";
-import Prismic from "@prismicio/client";
-import { RichText } from "prismic-dom";
-import { useEffect } from "react";
+import { getPrismicClient } from '../../services/prismic'
+import Prismic from '@prismicio/client'
+import { RichText } from 'prismic-dom'
+import { useEffect } from 'react'
 
-import Head from "next/head";
-import { Post } from "../../models/Post";
+import Head from 'next/head'
+import { Post } from '../../models/post'
 
 interface PostsProps {
-  posts: Post[];
-  setShowMenu: (show: boolean) => void;
+  posts: Post[]
+  setShowMenu: (show: boolean) => void
 }
 
 export default function Posts({ posts, setShowMenu }: PostsProps) {
   useEffect(() => {
-    setShowMenu(false);
-  }, []);
+    setShowMenu(false)
+  }, [])
 
   return (
     <PageContainer>
@@ -30,10 +30,10 @@ export default function Posts({ posts, setShowMenu }: PostsProps) {
       </Head>
       <Title fontSize={2.2}>What i've been writing</Title>
       <Content>
-        {posts.length == 0 ? (
+        {posts.length === 0 ? (
           <h2>No posts for now</h2>
         ) : (
-          posts.map((post) => (
+          posts.map(post => (
             <Link key={post.slug} href={`/posts/${post.slug}`}>
               <a>
                 <time>{post.updatedAt}</time>
@@ -45,46 +45,46 @@ export default function Posts({ posts, setShowMenu }: PostsProps) {
         )}
       </Content>
     </PageContainer>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const prismic = getPrismicClient();
-  let posts = [];
+  const prismic = getPrismicClient()
+  let posts = []
   try {
     const response = await prismic.query(
-      [Prismic.Predicates.at("document.type", "posts")],
+      [Prismic.Predicates.at('document.type', 'posts')],
       {
-        fetch: ["posts.title", "posts.content"],
-        pageSize: 100,
+        fetch: ['posts.title', 'posts.content'],
+        pageSize: 100
       }
-    );
+    )
 
-    posts = response.results.map((post) => {
+    posts = response.results.map(post => {
       return {
         slug: post.uid,
         title: RichText.asText(post.data.title),
         excerpt:
-          post.data.content.find((content) => content.type === "paragraph")
-            ?.text ?? "",
+          post.data.content.find(content => content.type === 'paragraph')
+            ?.text ?? '',
         updatedAt: new Date(post.last_publication_date).toLocaleDateString(
-          "pt-BR",
+          'pt-BR',
           {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
           }
-        ),
-      };
-    });
+        )
+      }
+    })
   } catch (e) {
-    console.log("Prismic API posts failed");
+    console.log('Prismic API posts failed')
   }
 
   return {
     props: {
-      posts,
+      posts
     },
-    revalidate: 1,
-  };
-};
+    revalidate: 60 * 60 * 24 // 1 dia,
+  }
+}

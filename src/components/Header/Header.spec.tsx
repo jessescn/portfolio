@@ -1,33 +1,31 @@
-import { ThemeProvider } from "styled-components";
-import lightTheme from "../../styles/themes/light";
-import { Header } from ".";
-import { render, screen, fireEvent, userEvent } from "../../jest";
+import Header from '.'
+import { render, screen, userEvent } from '../../jest'
 
-jest.mock("next/router", () => {
+jest.mock('next/router', () => {
   return {
     useRouter() {
       return {
-        asPath: "/",
-      };
-    },
-  };
-});
+        asPath: '/'
+      }
+    }
+  }
+})
 
-describe("Header component", () => {
-  it("should renders correctly", () => {
+describe('Header component', () => {
+  it('should renders correctly', () => {
     render(
       <Header
         toggleTheme={jest.fn()}
         setShowMenu={jest.fn()}
         showMenu={false}
       />
-    );
+    )
 
-    expect(screen.getByText("Home")).toBeInTheDocument();
-  });
+    expect(screen.getByText('Home')).toBeInTheDocument()
+  })
 
-  it("should toggle theme when user click on switch", () => {
-    const toggleThemeMocked = jest.fn();
+  it('should toggle theme when user click on switch', () => {
+    const toggleThemeMocked = jest.fn()
 
     render(
       <Header
@@ -35,17 +33,17 @@ describe("Header component", () => {
         setShowMenu={jest.fn()}
         showMenu={false}
       />
-    );
+    )
 
-    const switchBtn = screen.getByTestId("switch-btn");
+    const switchBtn = screen.getByTestId('switch-btn')
 
-    userEvent.click(switchBtn);
+    userEvent.click(switchBtn)
 
-    expect(toggleThemeMocked).toHaveBeenCalled();
-  });
+    expect(toggleThemeMocked).toHaveBeenCalled()
+  })
 
-  it("should open sidebar when user click on menu", () => {
-    const toggleMenuMocked = jest.fn();
+  it('should open sidebar when user click on menu', () => {
+    const toggleMenuMocked = jest.fn()
 
     render(
       <Header
@@ -53,12 +51,12 @@ describe("Header component", () => {
         setShowMenu={toggleMenuMocked}
         showMenu={true}
       />
-    );
+    )
 
-    const mobileMenu = screen.getByTestId("mobile-menu");
+    const mobileMenu = screen.getByTestId('mobile-menu')
 
-    userEvent.click(mobileMenu);
+    userEvent.click(mobileMenu)
 
-    expect(toggleMenuMocked).toHaveBeenCalled();
-  });
-});
+    expect(toggleMenuMocked).toHaveBeenCalled()
+  })
+})

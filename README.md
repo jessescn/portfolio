@@ -1,6 +1,7 @@
 # Portfólio
 
 This site was made using those tecnologies:
+
 - NextJS
 - React
 - Typescript

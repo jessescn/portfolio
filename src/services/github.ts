@@ -1,25 +1,54 @@
-import { Contributor, Language, Project } from "../models/Project";
-import { formatDate } from "../utils/format";
+import {
+  Language,
+  Project,
+  RemoteCommit,
+  RemoteLanguages,
+  RemoteProject
+} from '../models/project'
+import { formatDate } from '../utils/format'
+import axios from 'axios'
+import { RemoteContributor } from '../models/contributor'
 
-const API_URL = "https://api.github.com";
+const api = axios.create({
+  baseURL: 'https://api.github.com'
+})
 
 type Account = {
-  user: string;
-  repos: string[];
-};
+  user: string
+  repos: string[]
+}
 
 export const getGithubRepos = async (accounts: Account[]) => {
-  let projects: Project[] = [];
+  let projects: Project[] = []
 
   try {
-    for (let acc of accounts) {
-      const data = await getProjectsByUser(acc);
+    for (const acc of accounts) {
+      const repos = await getReposByUser(acc)
 
       const userProjects: Project[] = await Promise.all(
-        data.map(async (repo) => {
-          const languages = await getProjectLanguages(repo.full_name);
-          const contributors = await getProjectContributors(repo.full_name);
-          const commits = await getProjectCommits(repo.full_name);
+        repos.map(async repo => {
+          const repoLangs = await getRepoLanguages(repo.full_name)
+          const repoContributors = await getRepoContributors(repo.full_name)
+          const repoCommits = await getRepoCommits(repo.full_name)
+
+          const languages: Language[] = Object.keys(repoLangs).map(lang => ({
+            id: lang,
+            value: repoLangs[lang]
+          }))
+
+          const contributors = repoContributors.map(elm => {
+            return {
+              username: elm.login,
+              avatar: elm.avatar_url,
+              link: elm.url
+            }
+          })
+
+          const commits = repoCommits.map(commit => {
+            return {
+              date: formatDate(commit.commit.author.date)
+            }
+          })
 
           return {
             id: repo.id,
@@ -28,110 +57,94 @@ export const getGithubRepos = async (accounts: Account[]) => {
             link: repo.html_url,
             contributors,
             languages,
-            commits,
-          };
+            commits
+          }
         })
-      );
+      )
 
-      projects = [...projects, ...userProjects];
+      projects = [...projects, ...userProjects]
     }
   } catch (error) {
-    console.log("Github API failure");
+    console.log('Github API failure')
   }
 
-  return projects;
-};
+  return projects
+}
 
-const getProjectsByUser = async (acc: Account) => {
+const getReposByUser = async (acc: Account): Promise<RemoteProject[]> => {
   try {
-    const response = await fetch(
-      `${API_URL}/users/${acc.user}/repos?per_page=100`,
+    const { data } = await api.get<RemoteProject[]>(
+      `/users/${acc.user}/repos?per_page=100`,
       {
         headers: {
-          Authorization: `token ${process.env.GITHUB_TOKEN}`,
-        },
+          Authorization: `token ${process.env.GITHUB_TOKEN}`
+        }
       }
-    );
+    )
 
-    const data = await response.json();
-
-    return data.filter((project) => acc.repos.includes(project.name));
+    return data.filter(project => acc.repos.includes(project.name))
   } catch (error) {
-    console.log("Request project by user failure");
-    return [];
+    console.log('Request project by user failure')
+    return []
   }
-};
+}
 
-const getProjectLanguages = async (
+const getRepoLanguages = async (
   repoFullName: string
-): Promise<Language[]> => {
+): Promise<RemoteLanguages> => {
   try {
-    const response = await fetch(`${API_URL}/repos/${repoFullName}/languages`, {
-      headers: {
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
-      },
-    });
-
-    const data = await response.json();
-
-    return Object.keys(data).map((key) => {
-      return { id: key, value: data[key] };
-    });
-  } catch (error) {
-    console.log("Request project language failure");
-    return [];
-  }
-};
-
-const getProjectContributors = async (
-  repoFullName: string
-): Promise<Contributor[]> => {
-  try {
-    const response = await fetch(
-      `${API_URL}/repos/${repoFullName}/contributors`,
+    const response = await api.get<RemoteLanguages>(
+      `/repos/${repoFullName}/languages`,
       {
         headers: {
-          Authorization: `token ${process.env.GITHUB_TOKEN}`,
-        },
+          Authorization: `token ${process.env.GITHUB_TOKEN}`
+        }
       }
-    );
+    )
 
-    const data = await response.json();
-
-    const contributors = data.map((elm) => {
-      return {
-        username: elm.login,
-        avatar: elm.avatar_url,
-        link: elm.url,
-      };
-    });
-
-    return contributors;
+    return response.data
   } catch (error) {
-    console.log("Request projects contributors failure");
-    return [];
+    console.log('Request project language failure')
+    return {}
   }
-};
+}
 
-export const getProjectCommits = async (repoFullName: string) => {
+const getRepoContributors = async (
+  repoFullName: string
+): Promise<RemoteContributor[]> => {
   try {
-    const response = await fetch(`${API_URL}/repos/${repoFullName}/commits`, {
-      headers: {
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
-      },
-    });
+    const response = await api.get<RemoteContributor[]>(
+      `/repos/${repoFullName}/contributors`,
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`
+        }
+      }
+    )
 
-    const data = await response.json();
-
-    const commits = data.map((commit) => {
-      return {
-        date: formatDate(commit.commit.author.date),
-      };
-    });
-
-    return commits;
+    return response.data
   } catch (error) {
-    console.log("Request project commits failure");
-    return [];
+    console.log('Request projects contributors failure')
+    return []
   }
-};
+}
+
+export const getRepoCommits = async (
+  repoFullName: string
+): Promise<RemoteCommit[]> => {
+  try {
+    const response = await api.get<RemoteCommit[]>(
+      `/repos/${repoFullName}/commits`,
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`
+        }
+      }
+    )
+
+    return response.data
+  } catch (error) {
+    console.log('Request project commits failure')
+    return []
+  }
+}

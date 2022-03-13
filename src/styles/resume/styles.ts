@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Experiences = styled.div`
   max-width: 650px;
@@ -24,8 +24,8 @@ export const Experiences = styled.div`
     padding: 0.8rem 1.5rem;
     border-radius: 10px;
 
-    background: ${(props) => props.theme.colors.primary};
-    color: ${(props) => props.theme.colors.background};
+    background: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.background};
 
     font-weight: bold;
     font-size: 1rem;
@@ -36,4 +36,4 @@ export const Experiences = styled.div`
       font-size: 1.05rem;
     }
   }
-`;
+`

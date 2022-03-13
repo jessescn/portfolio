@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Experience = styled.div`
   margin-bottom: 4rem;
@@ -11,7 +11,7 @@ export const Experience = styled.div`
 
   span {
     display: block;
-    color: ${(props) => props.theme.colors.secundary};
+    color: ${props => props.theme.colors.secundary};
     font-size: 1rem;
     margin-top: 1rem;
     font-style: italic;
@@ -19,7 +19,7 @@ export const Experience = styled.div`
 
   time {
     display: block;
-    color: ${(props) => props.theme.colors.secundary};
+    color: ${props => props.theme.colors.secundary};
     font-size: 0.8rem;
     margin: 0.5rem 0 1rem;
   }
@@ -31,4 +31,4 @@ export const Experience = styled.div`
       margin-top: 1rem;
     }
   }
-`;
+`

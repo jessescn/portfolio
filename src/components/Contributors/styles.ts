@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const ContributorWrapper = styled.div`
   div {
@@ -23,16 +23,14 @@ export const ContributorWrapper = styled.div`
     }
   }
 
-
   @media (max-width: 950px) {
-
     a {
-        img {
-          width: 35px;
-          height: 35px;
-        }
+      img {
+        width: 35px;
+        height: 35px;
       }
     }
+  }
 
   @media (max-width: 600px) {
     margin: 1.5rem 0;

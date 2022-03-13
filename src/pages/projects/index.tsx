@@ -1,35 +1,35 @@
-import { GetStaticProps } from "next";
-import { useEffect, useState } from "react";
-import { Title } from "../../components/design/Title";
+import { GetStaticProps } from 'next'
+import { useEffect, useState } from 'react'
+import { Title } from '../../components/design/Title'
 import {
   Content,
   Project as ProjectStyle,
-  Container as PageContainer,
-} from "../../styles/projects/styles";
+  Container as PageContainer
+} from '../../styles/projects/styles'
 
-import Head from "next/head";
-import { ProjectModal } from "../../components/ProjectModal";
-import { formatProjectName } from "../../utils/format";
-import { getGithubRepos } from "../../services/github";
-import { Project } from "../../models/Project";
+import Head from 'next/head'
+import ProjectModal from '../../components/ProjectModal'
+import { formatProjectName } from '../../utils/format'
+import { getGithubRepos } from '../../services/github'
+import { Project } from '../../models/project'
 
 interface ProjectsProps {
-  projects: Project[];
-  setShowMenu: (show: boolean) => void;
+  projects: Project[]
+  setShowMenu: (show: boolean) => void
 }
 
 export default function Projects({ projects, setShowMenu }: ProjectsProps) {
-  const [modalProject, setModalProject] = useState({} as Project);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalProject, setModalProject] = useState({} as Project)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
-    setShowMenu(false);
-  }, []);
+    setShowMenu(false)
+  }, [])
 
-  const handleOpenModal = (project) => {
-    setModalProject(project);
-    setIsModalOpen(true);
-  };
+  const handleOpenModal = project => {
+    setModalProject(project)
+    setIsModalOpen(true)
+  }
 
   return (
     <PageContainer>
@@ -41,7 +41,7 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps) {
         <h2>No projects found</h2>
       ) : (
         <Content>
-          {projects.map((project) => (
+          {projects.map(project => (
             <ProjectStyle
               key={project.id}
               onClick={() => handleOpenModal(project)}
@@ -52,7 +52,7 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps) {
                 <p>Technologies</p>
                 {project.languages.map((language, i) => (
                   <span key={language.id}>{`${language.id} ${
-                    i !== project.languages.length - 1 ? "," : ""
+                    i !== project.languages.length - 1 ? ',' : ''
                   } `}</span>
                 ))}
               </div>
@@ -61,41 +61,41 @@ export default function Projects({ projects, setShowMenu }: ProjectsProps) {
         </Content>
       )}
       <ProjectModal
-        closeModal={() => {
-          setIsModalOpen(false);
+        onClose={() => {
+          setIsModalOpen(false)
         }}
-        isModalOpen={isModalOpen}
+        isOpen={isModalOpen}
         project={modalProject}
       />
     </PageContainer>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   const requestRepos = [
     {
-      user: "jessescn",
+      user: 'jessescn',
       repos: [
-        "sos-money",
-        "ignews",
-        "custom-notion-template",
-        "portfolio",
-        "moveit",
-        "dj-marques",
-        "go-go",
-      ],
+        'sos-money',
+        'ignews',
+        'custom-notion-template',
+        'portfolio',
+        'moveit',
+        'dj-marques',
+        'go-go'
+      ]
     },
     {
-      user: "OpenDevUFCG",
-      repos: ["opendevufcg.org"],
-    },
-  ];
-  const projects: Project[] = await getGithubRepos(requestRepos);
+      user: 'OpenDevUFCG',
+      repos: ['opendevufcg.org']
+    }
+  ]
+  const projects: Project[] = await getGithubRepos(requestRepos)
 
   return {
     props: {
-      projects,
+      projects
     },
-    revalidate: 60 * 60,
-  };
-};
+    revalidate: 60 * 60
+  }
+}

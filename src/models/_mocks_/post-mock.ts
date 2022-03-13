@@ -1,29 +1,29 @@
-import { Post } from "../Post";
+import { Post } from '../post'
 
 export class PostMockBuilder {
-  private slug = "";
-  private title = "";
-  private excerpt = "";
-  private updatedAt = "";
+  private slug = ''
+  private title = ''
+  private excerpt = ''
+  private updatedAt = ''
 
   withTitle(value: string) {
-    this.title = value;
-    return this;
+    this.title = value
+    return this
   }
 
   withSlug(value: string) {
-    this.slug = value;
-    return this;
+    this.slug = value
+    return this
   }
 
   withExcerpt(value: string) {
-    this.excerpt = value;
-    return this;
+    this.excerpt = value
+    return this
   }
 
   withUpdatedAt(value: string) {
-    this.updatedAt = value;
-    return this;
+    this.updatedAt = value
+    return this
   }
 
   build(): Post {
@@ -31,7 +31,7 @@ export class PostMockBuilder {
       excerpt: this.excerpt,
       slug: this.slug,
       title: this.title,
-      updatedAt: this.updatedAt,
-    };
+      updatedAt: this.updatedAt
+    }
   }
 }

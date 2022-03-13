@@ -1,33 +1,34 @@
-import { AiOutlineClose, AiOutlineLink } from "react-icons/ai";
-import { Project } from "../../models/Project";
-import { formatProjectName } from "../../utils/format";
-import Contributors from "../Contributors";
-import { Subtitle } from "../design/Subtitle";
-import ProjectCalendar from "../Graphs/ProjectCalendar";
-import { Modal, Title, Wrapper } from "./styles";
+import { memo, MouseEvent } from 'react'
+import { AiOutlineClose, AiOutlineLink } from 'react-icons/ai'
+import { Project } from '../../models/project'
+import { formatProjectName } from '../../utils/format'
+import Contributors from '../Contributors'
+import { Subtitle } from '../design/Subtitle'
+import ProjectCalendar from '../Graphs/ProjectCalendar'
+import { Modal, Title, Wrapper } from './styles'
 
 interface ProjectModalProps {
-  project: Project;
-  isModalOpen: boolean;
-  closeModal: () => void;
+  project: Project
+  isOpen: boolean
+  onClose: () => void
 }
 
-export function ProjectModal({
-  project,
-  isModalOpen,
-  closeModal,
-}: ProjectModalProps) {
-  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-  };
+const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
+  const handleModalClick = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation()
+  }
 
   return !project.id ? null : (
-    <Wrapper className={isModalOpen ? "modal-open" : "modal-close"}>
-      <div className="modal-background" onClick={closeModal}>
+    <Wrapper className={isOpen ? 'modal-open' : 'modal-close'}>
+      <div
+        data-testid="modal-background-container"
+        className="modal-background"
+        onClick={onClose}
+      >
         <Modal className="modal" onClick={handleModalClick}>
           <div className="title">
             <Title href={project.link} target="_blank">
-              {formatProjectName(project.name)} <AiOutlineLink size="1.5rem" />{" "}
+              {formatProjectName(project.name)} <AiOutlineLink size="1.5rem" />{' '}
               <div />
             </Title>
             <p>{project.description}</p>
@@ -37,17 +38,15 @@ export function ProjectModal({
               <div className="technologies">
                 <Subtitle>Technologies</Subtitle>
                 <div className="technologies">
-                  {project.languages.map((language, idx) => (
-                    <span key={language.id}>{`${language.id} ${
-                      idx !== project.languages.length - 1 ? "," : ""
-                    } `}</span>
-                  ))}
+                  <span>
+                    {project.languages.map(lang => lang.id).join(', ')}
+                  </span>
                 </div>
               </div>
             )}
             <Contributors contributors={project.contributors} />
           </div>
-          {project.languages.length > 0 && (
+          {project.commits.length > 0 && (
             <>
               <Subtitle>Commits</Subtitle>
               <div className="overview">
@@ -58,10 +57,13 @@ export function ProjectModal({
           <AiOutlineClose
             size="1.5rem"
             className="closeButton"
-            onClick={closeModal}
+            data-testid="modal-close-button"
+            onClick={onClose}
           />
         </Modal>
       </div>
     </Wrapper>
-  );
+  )
 }
+
+export default memo(ProjectModal)

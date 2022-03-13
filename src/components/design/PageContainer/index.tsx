@@ -1,14 +1,10 @@
-import { ReactNode } from "react";
-import { Container } from "./styles";
+import { ReactNode } from 'react'
+import { Container } from './styles'
 
 interface PageContainerProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
-export function PageContainer({ children }: PageContainerProps){
-  return(
-    <Container>
-      {children}
-    </Container>
-  )
+export function PageContainer({ children }: PageContainerProps) {
+  return <Container>{children}</Container>
 }

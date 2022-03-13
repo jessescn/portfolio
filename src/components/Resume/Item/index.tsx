@@ -1,27 +1,29 @@
-import { memo } from "react";
-import { Job } from "../../../models/Job";
-import { Experience } from "./styles";
+import { memo } from 'react'
+import { Job } from '../../../models/job'
+import { Experience } from './styles'
 
 type Props = {
-  job: Job;
-};
+  job: Job
+}
 
-const ResumeItem = (props: Props) => {
+const ResumeItem = ({ job }: Props) => {
+  const { role, at, startDate, endDate, summary, experiences } = job
+
   return (
     <Experience>
-      <h2>{props.job.role}</h2>
-      <span>at {props.job.at}</span>
+      <h2>{role}</h2>
+      <span>at {at}</span>
       <time>
-        {props.job.startDate} - {props.job.endDate ?? "Present"}
+        {startDate} - {endDate ?? 'Present'}
       </time>
-      <p>{props.job.summary}</p>
+      <p>{summary}</p>
       <ul>
-        {props.job.experiences.map((xp) => (
+        {experiences.map(xp => (
           <li key={xp}>{xp}</li>
         ))}
       </ul>
     </Experience>
-  );
-};
+  )
+}
 
-export default memo(ResumeItem);
+export default memo(ResumeItem)
