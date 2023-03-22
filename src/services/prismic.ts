@@ -14,10 +14,22 @@ export const getjobs = async () => {
   try {
     const response = await prismic.query(
       Prismic.Predicates.at('document.type', 'jobs'),
-      { orderings: '[my.jobs.end]', pageSize: 20 }
+      { orderings: '[my.jobs.end desc]', pageSize: 20 }
     )
 
-    jobs = response.results.map(job => {
+    const sortJobsByEndDate = (job1: any, job2: any) => {
+      if (!job1.data.end) {
+        return -1
+      }
+
+      return (
+        new Date(job2.data.end).getTime() - new Date(job1.data.end).getTime()
+      )
+    }
+
+    const sortedResultsByEndDate = response.results.sort(sortJobsByEndDate)
+
+    jobs = sortedResultsByEndDate.map(job => {
       const { uid, data } = job
       return {
         slug: uid,

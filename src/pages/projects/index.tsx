@@ -76,6 +76,7 @@ export const getStaticProps: GetStaticProps = async () => {
     {
       user: 'jessescn',
       repos: [
+        'TCC',
         'sos-money',
         'ignews',
         'custom-notion-template',
